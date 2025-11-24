@@ -22,6 +22,6 @@ public class Main {
     terminal.setScreen(ws);
     terminal.showScreen();
 
-    System.out.println(Text.bgBrightYellow("Goodbye!"));
+    System.out.println(Text.green("Goodbye!"));
   }
 }
