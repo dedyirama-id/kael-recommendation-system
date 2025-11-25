@@ -5,9 +5,11 @@ import org.kael.utils.Terminal;
 
 public class WellcomeScreen implements Screen {
   private final Terminal terminal;
+  private final Screen recommendEventScreen;
 
-  public WellcomeScreen(Terminal terminal) {
+  public WellcomeScreen(Terminal terminal, Screen recommendEventScreen) {
     this.terminal = terminal;
+    this.recommendEventScreen = recommendEventScreen;
   }
 
   @Override
@@ -29,8 +31,7 @@ public class WellcomeScreen implements Screen {
             return;
             }
         case 1 -> {
-            Screen res = new RecommendEventScreen(this.terminal);
-            res.show();
+            this.recommendEventScreen.show();
             }
         case 2 -> throw new Exception("Not implemented yet!");
       }
