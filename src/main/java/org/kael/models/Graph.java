@@ -114,6 +114,32 @@ public class Graph<T> {
     }
     return sb.toString();
   }
+  
+  private String flattenObject(T obj) {
+    StringBuilder sb = new StringBuilder();
+    try {
+      for (var field : obj.getClass().getDeclaredFields()) {
+        field.setAccessible(true);
+        Object value = field.get(obj);
+        if (value instanceof String s) {
+          sb.append(s.toLowerCase()).append(" ");
+        }
+      }
+    } catch (Exception ignored) {}
+    return sb.toString();
+  }
+
+  public Set<T> search(String query) {
+    Set<T> results = new LinkedHashSet<>();
+    String q = query.toLowerCase();
+
+    for (T value : vertices.keySet()) {
+      String flat = flattenObject(value);
+      if (flat.contains(q)) {
+        results.add(value);
+      }
+    }
+    return results;
 
   public Node<T>[] toArray() {
     @SuppressWarnings("unchecked")
