@@ -1,6 +1,7 @@
 package org.kael.views;
 
 import org.kael.Screen;
+import org.kael.algorithms.Sort;
 import org.kael.entities.Event;
 import org.kael.models.Graph;
 import org.kael.utils.Terminal;
@@ -39,7 +40,7 @@ public class RecommendEventScreen implements Screen {
     }
 
     Graph.Node<Object>[] nodes = this.graph.toArray();
-    // Sort.selectionSort(nodes);
+    Sort.selectionSortDesc(nodes);
 
     final int MAX_EVENTS = 5;
     List<Graph.Node<Object>> events = new LinkedList<>();
@@ -60,6 +61,10 @@ public class RecommendEventScreen implements Screen {
       System.out.println("Organizer   : " + event.getOrganizer());
       System.out.println("Title       : " + event.getTitle());
       System.out.println("Desc        : " + event.getDescription());
+      System.out.println("Relv. Score : " + node.score);
     }
+    terminal.waitForInput("Press ENTER to continue...");
+    this.graph.resetScores();
+    this.terminal.clear();
   }
 }

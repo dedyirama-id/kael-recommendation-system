@@ -1,20 +1,12 @@
 package org.kael.models;
 
-import java.util.ArrayDeque;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 /**
  * General Graph class
  */
 public class Graph<T> {
-  public static class Node<T> {
+  public static class Node<T> implements Comparable<Node<T>> {
     private final T value;
     private final Set<Node<T>> neighbors = new LinkedHashSet<>();
     public int score = 0;
@@ -34,6 +26,11 @@ public class Graph<T> {
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    @Override
+    public int compareTo(Node<T> other) {
+      return Integer.compare(this.score, other.score);
     }
   }
 
@@ -114,7 +111,7 @@ public class Graph<T> {
     }
     return sb.toString();
   }
-  
+
   private String flattenObject(T obj) {
     StringBuilder sb = new StringBuilder();
     try {
@@ -125,7 +122,8 @@ public class Graph<T> {
           sb.append(s.toLowerCase()).append(" ");
         }
       }
-    } catch (Exception ignored) {}
+    } catch (Exception ignored) {
+    }
     return sb.toString();
   }
 
@@ -186,6 +184,12 @@ public class Graph<T> {
           levels.add(level + 1);
         }
       }
+    }
+  }
+
+  public void resetScores() {
+    for (Node<T> node : vertices.values()) {
+      node.score = 0;
     }
   }
 }
