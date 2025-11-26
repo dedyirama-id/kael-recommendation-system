@@ -32,8 +32,7 @@ public class Terminal {
   }
 
   public void waitForInput(String text) {
-    System.out.print(text);
-    this.getLine("");
+    this.getLine(text);
   }
 
   public void printDivider() {
@@ -61,14 +60,12 @@ public class Terminal {
   public String getLine(String prefix) {
     System.out.print(prefix);
 
-    String input = this.sc.nextLine();
-    return input;
+    return this.sc.nextLine();
   }
 
   public int getInt(String prefix) {
     while (true) {
-      System.out.print(prefix);
-      String line = this.sc.nextLine();
+      String line = this.getLine(prefix);
       try {
         return Integer.parseInt(line.trim());
       } catch (NumberFormatException e) {
@@ -83,8 +80,7 @@ public class Terminal {
         System.out.println(i + ". " + options[i]);
       }
 
-      System.out.print(prefix);
-      String line = this.sc.nextLine();
+      String line = this.getLine(prefix);
       try {
         int choose = Integer.parseInt(line.trim());
         if (choose < 0 || choose > options.length - 1) {
