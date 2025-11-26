@@ -140,6 +140,7 @@ public class Graph<T> {
       }
     }
     return results;
+  }
 
   public Node<T>[] toArray() {
     @SuppressWarnings("unchecked")

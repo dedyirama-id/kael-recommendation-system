@@ -1,12 +1,12 @@
 package org.kael.views;
 
 import org.kael.Screen;
+import org.kael.entities.Event;
 import org.kael.models.Graph;
 import org.kael.utils.Terminal;
 import org.kael.utils.Text;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 public class RecommendEventScreen implements Screen {
   private final Terminal terminal;
@@ -34,8 +34,32 @@ public class RecommendEventScreen implements Screen {
       }
 
       for (Object vertex : new LinkedHashSet<>(matches)) {
-        this.graph.bfsScoring(vertex, 2);
+        this.graph.bfsScoring(vertex, 1);
       }
+    }
+
+    Graph.Node<Object>[] nodes = this.graph.toArray();
+    // Sort.selectionSort(nodes);
+
+    final int MAX_EVENTS = 5;
+    List<Graph.Node<Object>> events = new LinkedList<>();
+
+    for (Graph.Node<Object> node : nodes) {
+      if (node.getValue() instanceof Event) {
+        events.add(node);
+        if (events.size() >= MAX_EVENTS) {
+          break;
+        }
+      }
+    }
+
+    for (Graph.Node<Object> node : events) {
+      terminal.printDivider();
+      Event event = (Event) node.getValue();
+      System.out.println("ID          : " + event.getId());
+      System.out.println("Organizer   : " + event.getOrganizer());
+      System.out.println("Title       : " + event.getTitle());
+      System.out.println("Desc        : " + event.getDescription());
     }
   }
 }
