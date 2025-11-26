@@ -25,3 +25,4 @@ public class Main {
     System.out.println(Text.green("Goodbye!"));
   }
 }
+
