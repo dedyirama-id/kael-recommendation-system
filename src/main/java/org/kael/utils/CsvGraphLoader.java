@@ -16,23 +16,48 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Loader utilitas untuk membangun graf objek (User, Event, Tag)
+ * berdasarkan data CSV yang tersimpan di resources.
+ */
 public class CsvGraphLoader {
   private final Map<String, User> users = new LinkedHashMap<>();
   private final Map<String, Event> events = new LinkedHashMap<>();
   private final Map<String, Tag> tags = new LinkedHashMap<>();
 
+  /**
+   * Mengambil data user yang sudah dimuat.
+   *
+   * @return Map tidak dapat dimodifikasi berisi user dengan key ID.
+   */
   public Map<String, User> getUsers() {
     return Collections.unmodifiableMap(users);
   }
 
+  /**
+   * Mengambil data event yang sudah dimuat.
+   *
+   * @return Map tidak dapat dimodifikasi berisi event dengan key ID.
+   */
   public Map<String, Event> getEvents() {
     return Collections.unmodifiableMap(events);
   }
 
+  /**
+   * Mengambil data tag yang sudah dimuat.
+   *
+   * @return Map tidak dapat dimodifikasi berisi tag dengan key ID.
+   */
   public Map<String, Tag> getTags() {
     return Collections.unmodifiableMap(tags);
   }
 
+  /**
+   * Memuat seluruh data CSV dan membangun graf tak berarah.
+   *
+   * @return graf terisi lengkap dengan vertex dan edge yang dibaca.
+   * @throws IOException jika file resource tidak ditemukan atau format baris tidak valid.
+   */
   public Graph<Object> loadGraph() throws IOException {
     Graph<Object> graph = new Graph<>(false);
 
@@ -46,6 +71,12 @@ public class CsvGraphLoader {
     return graph;
   }
 
+  /**
+   * Membaca file users.csv dan menambahkan vertex User ke graf.
+   *
+   * @param graph graf target.
+   * @throws IOException jika baris CSV kurang kolom atau tidak bisa dibaca.
+   */
   private void loadUsers(Graph<Object> graph) throws IOException {
     for (String[] row : readCsv("users.csv")) {
       if (row.length < 3) {
@@ -58,6 +89,12 @@ public class CsvGraphLoader {
     }
   }
 
+  /**
+   * Membaca file events.csv dan menambahkan vertex Event ke graf.
+   *
+   * @param graph graf target.
+   * @throws IOException jika baris CSV kurang kolom atau tidak bisa dibaca.
+   */
   private void loadEvents(Graph<Object> graph) throws IOException {
     for (String[] row : readCsv("events.csv")) {
       if (row.length < 8) {
@@ -79,6 +116,12 @@ public class CsvGraphLoader {
     }
   }
 
+  /**
+   * Membaca file tags.csv dan menambahkan vertex Tag ke graf.
+   *
+   * @param graph graf target.
+   * @throws IOException jika baris CSV kurang kolom atau tidak bisa dibaca.
+   */
   private void loadTags(Graph<Object> graph) throws IOException {
     for (String[] row : readCsv("tags.csv")) {
       if (row.length < 3) {
@@ -91,6 +134,12 @@ public class CsvGraphLoader {
     }
   }
 
+  /**
+   * Membuat edge antara user dan event berdasarkan user_event.csv.
+   *
+   * @param graph graf target.
+   * @throws IOException jika baris tidak valid.
+   */
   private void linkUserEvents(Graph<Object> graph) throws IOException {
     for (String[] row : readCsv("user_event.csv")) {
       if (row.length < 2) {
@@ -102,6 +151,12 @@ public class CsvGraphLoader {
     }
   }
 
+  /**
+   * Membuat edge antara user dan tag berdasarkan user_tag.csv.
+   *
+   * @param graph graf target.
+   * @throws IOException jika baris tidak valid.
+   */
   private void linkUserTags(Graph<Object> graph) throws IOException {
     for (String[] row : readCsv("user_tag.csv")) {
       if (row.length < 2) {
@@ -113,6 +168,12 @@ public class CsvGraphLoader {
     }
   }
 
+  /**
+   * Membuat edge antara event dan tag berdasarkan event_tag.csv.
+   *
+   * @param graph graf target.
+   * @throws IOException jika baris tidak valid.
+   */
   private void linkEventTags(Graph<Object> graph) throws IOException {
     for (String[] row : readCsv("event_tag.csv")) {
       if (row.length < 2) {
@@ -124,6 +185,13 @@ public class CsvGraphLoader {
     }
   }
 
+  /**
+   * Membaca resource CSV menjadi list array string tanpa baris header.
+   *
+   * @param resourceName nama file resource di classpath.
+   * @return list baris yang sudah dipisah berdasarkan koma.
+   * @throws IOException jika resource tidak ditemukan atau gagal dibaca.
+   */
   private List<String[]> readCsv(String resourceName) throws IOException {
     InputStream in = getResource(resourceName);
     List<String[]> rows = new ArrayList<>();
@@ -142,6 +210,13 @@ public class CsvGraphLoader {
     return rows;
   }
 
+  /**
+   * Mengambil stream resource dari classpath.
+   *
+   * @param resourceName nama file di resources.
+   * @return InputStream siap dibaca.
+   * @throws IOException jika resource tidak ditemukan.
+   */
   private InputStream getResource(String resourceName) throws IOException {
     InputStream in = CsvGraphLoader.class.getClassLoader().getResourceAsStream(resourceName);
     if (in == null) {
@@ -150,6 +225,13 @@ public class CsvGraphLoader {
     return in;
   }
 
+  /**
+   * Mengambil user dari cache dan melempar exception jika tidak ada.
+   *
+   * @param id id user.
+   * @return User dengan id yang dimaksud.
+   * @throws IllegalStateException jika user tidak ditemukan.
+   */
   private User requireUser(String id) {
     User user = users.get(id);
     if (user == null) {
@@ -158,6 +240,13 @@ public class CsvGraphLoader {
     return user;
   }
 
+  /**
+   * Mengambil event dari cache dan melempar exception jika tidak ada.
+   *
+   * @param id id event.
+   * @return Event dengan id yang dimaksud.
+   * @throws IllegalStateException jika event tidak ditemukan.
+   */
   private Event requireEvent(String id) {
     Event event = events.get(id);
     if (event == null) {
@@ -166,6 +255,13 @@ public class CsvGraphLoader {
     return event;
   }
 
+  /**
+   * Mengambil tag dari cache dan melempar exception jika tidak ada.
+   *
+   * @param id id tag.
+   * @return Tag dengan id yang dimaksud.
+   * @throws IllegalStateException jika tag tidak ditemukan.
+   */
   private Tag requireTag(String id) {
     Tag tag = tags.get(id);
     if (tag == null) {

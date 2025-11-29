@@ -1,12 +1,17 @@
 package org.kael.algorithms;
 
+/**
+ * Kumpulan algoritma pengurutan sederhana yang digunakan di aplikasi.
+ */
 public class Sort {
 
     /**
-     * Sort array of data using selection sort algorithm.
+     * Sort array of data using selection sort algorithm (ascending).
+     * Array akan diubah di tempat dan tidak mengembalikan nilai.
      *
      * @param data Random array of data to be sorted. Element should implement Comparable interface.
-     * @throws Exception Throw any exception if process failed
+     * @param <T>  tipe elemen yang dapat dibandingkan.
+     * @throws Exception jika array bernilai null atau proses gagal.
      */
     public static <T extends Comparable<T>> void selectionSort(T[] data) throws Exception {
         if (data == null) {

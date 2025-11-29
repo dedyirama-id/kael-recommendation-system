@@ -3,15 +3,29 @@ package org.kael.views;
 import org.kael.Screen;
 import org.kael.utils.Terminal;
 
+/**
+ * Layar selamat datang untuk navigasi awal aplikasi.
+ */
 public class WellcomeScreen implements Screen {
   private final Terminal terminal;
   private final Screen recommendEventScreen;
 
+  /**
+   * Membuat layar selamat datang.
+   *
+   * @param terminal utilitas terminal untuk I/O.
+   * @param recommendEventScreen layar rekomendasi event yang akan dipanggil ketika dipilih.
+   */
   public WellcomeScreen(Terminal terminal, Screen recommendEventScreen) {
     this.terminal = terminal;
     this.recommendEventScreen = recommendEventScreen;
   }
 
+  /**
+   * Menampilkan menu utama dengan pilihan navigasi atau keluar.
+   *
+   * @throws Exception jika navigasi layar gagal atau fitur belum diimplementasi.
+   */
   @Override
   public void show() throws Exception {
     while (true) {
@@ -38,6 +52,9 @@ public class WellcomeScreen implements Screen {
     }
   }
 
+  /**
+   * Mencetak logo ASCII art aplikasi ke terminal.
+   */
   private void printLogo() {
     String logo =  """
         ██╗  ██╗ █████╗ ███████╗██╗    \s

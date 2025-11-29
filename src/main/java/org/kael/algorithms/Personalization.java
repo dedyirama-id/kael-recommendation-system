@@ -1,14 +1,23 @@
 package org.kael.algorithms;
 
-import org.kael.models.Graph;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import java.util.*;
+import org.kael.models.Graph;
 
 /**
  * Utility untuk algoritma personalisasi (BFS scoring, PPR, dll.).
  */
 public final class Personalization {
 
+  /**
+   * Mencegah instansiasi karena kelas hanya berisi utilitas statis.
+   */
   private Personalization() {
   }
 
@@ -17,6 +26,11 @@ public final class Personalization {
    * - Mulai dari startVertex, BFS sampai maxLevel.
    * - Setiap Node yang dikunjungi menambah skor +1 pada value-nya di map scores.
    * - Skor diakumulasi ke Map<T, Integer> yang diberikan pemanggil.
+   *
+   * @param graph       graf yang ditelusuri.
+   * @param startVertex simpul awal penelusuran.
+   * @param maxLevel    kedalaman maksimum BFS.
+   * @param scores      map akumulator skor; akan dimodifikasi in-place.
    */
   public static <T> void bfsScoring(
       Graph<T> graph,
@@ -49,7 +63,6 @@ public final class Personalization {
         continue;
       }
 
-      // Tambah skor untuk value node ini
       T value = current.getValue();
       scores.merge(value, 1, Integer::sum);
 
@@ -69,6 +82,10 @@ public final class Personalization {
 
   /**
    * Utility untuk mengubah map skor menjadi list Scored<T>.
+   *
+   * @param scores map berisi entity serta nilai skor numerik.
+   * @param <T>    tipe nilai yang dibungkus.
+   * @return list Scored yang dapat diurutkan.
    */
   public static <T> List<Scored<T>> toScoredList(Map<T, ? extends Number> scores) {
     List<Scored<T>> list = new ArrayList<>();

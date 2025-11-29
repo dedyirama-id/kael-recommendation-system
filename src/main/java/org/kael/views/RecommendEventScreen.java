@@ -1,5 +1,12 @@
 package org.kael.views;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.kael.Screen;
 import org.kael.algorithms.Personalization;
 import org.kael.algorithms.Scored;
@@ -9,17 +16,31 @@ import org.kael.models.Graph;
 import org.kael.utils.Terminal;
 import org.kael.utils.Text;
 
-import java.util.*;
-
+/**
+ * Layar untuk memberikan rekomendasi event berbasis input deskripsi profil.
+ */
 public class RecommendEventScreen implements Screen {
   private final Terminal terminal;
   private final Graph<Object> graph;
 
+  /**
+   * Membuat layar rekomendasi event.
+   *
+   * @param terminal utilitas terminal untuk I/O.
+   * @param graph    graf objek pengguna, event, dan tag.
+   */
   public RecommendEventScreen(Terminal terminal, Graph<Object> graph) {
     this.terminal = terminal;
     this.graph = graph;
   }
 
+  /**
+   * Menjalankan alur rekomendasi: menerima deskripsi profil,
+   * menghitung skor kedekatan dengan BFS personalisasi, mengurutkan,
+   * dan menampilkan beberapa event teratas.
+   *
+   * @throws Exception jika proses penghitungan atau penampilan layar gagal.
+   */
   @Override
   public void show() throws Exception {
     this.terminal.clear();

@@ -7,7 +7,18 @@ import org.kael.utils.Text;
 import org.kael.views.RecommendEventScreen;
 import org.kael.views.WellcomeScreen;
 
+/**
+ * Entry point untuk aplikasi Ka'el Recommendation System berbasis terminal.
+ * Kelas ini menyiapkan utilitas terminal, memuat graph dari sumber CSV,
+ * lalu memulai tampilan awal aplikasi.
+ */
 public class Main {
+  /**
+   * Menjalankan aplikasi CLI rekomendasi.
+   *
+   * @param args argumen baris perintah, tidak digunakan.
+   * @throws Exception ketika proses inisialisasi atau render screen gagal.
+   */
   public static void main(String[] args) throws Exception {
     Terminal terminal = new Terminal(100);
     CsvGraphLoader loader = new CsvGraphLoader();
