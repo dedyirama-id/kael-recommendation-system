@@ -66,7 +66,7 @@ public class RecommendEventScreen implements Screen {
 
     List<Scored<Object>> scoredList = Personalization.toScoredList(scores);
 
-    Scored<Object>[] scoredArray = scoredList.toArray(new Scored[0]);
+    Scored<Object>[] scoredArray = scoredList.toArray(Scored[]::new);
     Sort.selectionSort(scoredArray);
 
     final int MAX_EVENTS = 5;
@@ -92,7 +92,7 @@ public class RecommendEventScreen implements Screen {
       System.out.println("Relv. Score : " + scoredEvent.getScore());
     }
 
-    if(events.size() == 0) {
+    if(events.isEmpty()) {
       System.out.println(Text.warning("Maaf, belum ada rekomendasi yang cocok untuk profil anda."));
     }
     terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));

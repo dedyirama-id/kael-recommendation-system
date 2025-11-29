@@ -117,7 +117,7 @@ public class Terminal {
       try {
         return Integer.parseInt(line.trim());
       } catch (NumberFormatException e) {
-        System.out.println(Text.error("Input should a number!"));
+        System.out.println(Text.error("Input should be a number!"));
       }
     }
   }
@@ -144,7 +144,7 @@ public class Terminal {
         }
         return Integer.parseInt(line.trim());
       } catch (NumberFormatException e) {
-        System.out.println(Text.error("Input should a number!"));
+        System.out.println(Text.error("Input should be a number!"));
       }
     }
   }
