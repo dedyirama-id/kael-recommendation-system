@@ -3,8 +3,7 @@ package org.kael;
 import org.kael.models.Graph;
 import org.kael.utils.Terminal;
 import org.kael.utils.Text;
-import org.kael.views.RecommendEventScreen;
-import org.kael.views.WellcomeScreen;
+import org.kael.views.*;
 
 /**
  * Entry point untuk aplikasi Ka'el Recommendation System berbasis terminal.
@@ -31,7 +30,10 @@ public class Main {
     terminal.clear();
 
     Screen res = new RecommendEventScreen(terminal, graph);
-    Screen ws = new WellcomeScreen(terminal, res);
+    Screen rus = new RecommendUserScreen(terminal, graph);
+    Screen fes = new FindEventScreen(terminal, loader);
+    Screen fus = new FindUserScreen(terminal, loader);
+    Screen ws = new WellcomeScreen(terminal, res, rus, fes, fus);
 
     terminal.setScreen(ws);
     terminal.showScreen();
