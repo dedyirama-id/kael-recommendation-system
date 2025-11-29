@@ -49,7 +49,7 @@ public class RecommendUserScreen implements Screen {
         System.out.println(Text.bold("# Recommend User"));
         this.terminal.printDivider();
 
-        String[] tokens = this.terminal.getLine("Describe your profile: ").split("\\s+");
+        String[] tokens = this.terminal.getLine("Describe your event: ").split("\\s+");
 
         Map<Object, Integer> scores = new HashMap<>();
 
@@ -91,7 +91,7 @@ public class RecommendUserScreen implements Screen {
         }
 
         if (users.isEmpty()) {
-            System.out.println(Text.warning("Maaf, belum ada rekomendasi user yang cocok dengan profil anda."));
+            System.out.println(Text.warning("Maaf, belum ada rekomendasi user yang cocok dengan deskripsi event yang anda berikan."));
         }
 
         terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
