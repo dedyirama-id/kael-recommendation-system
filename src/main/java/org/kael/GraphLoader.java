@@ -1,4 +1,4 @@
-package org.kael.utils;
+package org.kael;
 
 import org.kael.entities.Event;
 import org.kael.entities.Tag;
@@ -20,7 +20,7 @@ import java.util.Map;
  * Loader utilitas untuk membangun graf objek (User, Event, Tag)
  * berdasarkan data CSV yang tersimpan di resources.
  */
-public class CsvGraphLoader {
+public class GraphLoader {
   private final Map<String, User> users = new LinkedHashMap<>();
   private final Map<String, Event> events = new LinkedHashMap<>();
   private final Map<String, Tag> tags = new LinkedHashMap<>();
@@ -218,7 +218,7 @@ public class CsvGraphLoader {
    * @throws IOException jika resource tidak ditemukan.
    */
   private InputStream getResource(String resourceName) throws IOException {
-    InputStream in = CsvGraphLoader.class.getClassLoader().getResourceAsStream(resourceName);
+    InputStream in = GraphLoader.class.getClassLoader().getResourceAsStream(resourceName);
     if (in == null) {
       throw new IOException("Resource not found: " + resourceName);
     }

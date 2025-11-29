@@ -1,7 +1,6 @@
 package org.kael;
 
 import org.kael.models.Graph;
-import org.kael.utils.CsvGraphLoader;
 import org.kael.utils.Terminal;
 import org.kael.utils.Text;
 import org.kael.views.RecommendEventScreen;
@@ -21,7 +20,7 @@ public class Main {
    */
   public static void main(String[] args) throws Exception {
     Terminal terminal = new Terminal(100);
-    CsvGraphLoader loader = new CsvGraphLoader();
+    GraphLoader loader = new GraphLoader();
 
     Graph<Object> graph = loader.loadGraph();
     System.out.println("# Loaded Graph");
