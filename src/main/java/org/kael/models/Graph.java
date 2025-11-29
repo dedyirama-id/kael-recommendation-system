@@ -6,10 +6,9 @@ import java.util.*;
  * General Graph class
  */
 public class Graph<T> {
-  public static class Node<T> implements Comparable<Node<T>> {
+  public static class Node<T> {
     private final T value;
     private final Set<Node<T>> neighbors = new LinkedHashSet<>();
-    public int score = 0;
 
     private Node(T value) {
       this.value = value;
@@ -26,11 +25,6 @@ public class Graph<T> {
     @Override
     public String toString() {
       return String.valueOf(value);
-    }
-
-    @Override
-    public int compareTo(Node<T> other) {
-      return Integer.compare(this.score, other.score);
     }
   }
 
@@ -144,52 +138,5 @@ public class Graph<T> {
     @SuppressWarnings("unchecked")
     Node<T>[] arr = vertices.values().toArray(new Node[0]);
     return arr;
-  }
-
-  public Map<T, Integer> getScores() {
-    Map<T, Integer> scores = new LinkedHashMap<>();
-    for (Node<T> node : vertices.values()) {
-      scores.put(node.value, node.score);
-    }
-    return Collections.unmodifiableMap(scores);
-  }
-
-  public void bfsScoring(T startVertex, int maxLevel) {
-    Node<T> start = vertices.get(startVertex);
-    if (start == null) {
-      System.out.println("Start vertex not found: " + startVertex);
-      return;
-    }
-
-    Set<Node<T>> visited = new HashSet<>();
-    Queue<Node<T>> queue = new ArrayDeque<>();
-    Queue<Integer> levels = new ArrayDeque<>();
-
-    visited.add(start);
-    queue.add(start);
-    levels.add(0);
-
-    while (!queue.isEmpty()) {
-      Node<T> current = queue.poll();
-      int level = levels.poll();
-
-      if (level > maxLevel) continue;
-      current.score += 1;
-
-      if (level == maxLevel) continue;
-      for (Node<T> neighbor : current.neighbors) {
-        if (!visited.contains(neighbor)) {
-          visited.add(neighbor);
-          queue.add(neighbor);
-          levels.add(level + 1);
-        }
-      }
-    }
-  }
-
-  public void resetScores() {
-    for (Node<T> node : vertices.values()) {
-      node.score = 0;
-    }
   }
 }
