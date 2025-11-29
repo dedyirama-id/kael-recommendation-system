@@ -1,16 +1,25 @@
 package org.kael;
 
 import org.kael.models.Graph;
-import org.kael.utils.CsvGraphLoader;
 import org.kael.utils.Terminal;
 import org.kael.utils.Text;
-import org.kael.views.RecommendEventScreen;
-import org.kael.views.WellcomeScreen;
+import org.kael.views.*;
 
+/**
+ * Entry point untuk aplikasi Ka'el Recommendation System berbasis terminal.
+ * Kelas ini menyiapkan utilitas terminal, memuat graph dari sumber CSV,
+ * lalu memulai tampilan awal aplikasi.
+ */
 public class Main {
+  /**
+   * Menjalankan aplikasi CLI rekomendasi.
+   *
+   * @param args argumen baris perintah, tidak digunakan.
+   * @throws Exception ketika proses inisialisasi atau render screen gagal.
+   */
   public static void main(String[] args) throws Exception {
     Terminal terminal = new Terminal(100);
-    CsvGraphLoader loader = new CsvGraphLoader();
+    GraphLoader loader = new GraphLoader();
 
     Graph<Object> graph = loader.loadGraph();
     System.out.println("# Loaded Graph");
@@ -21,7 +30,10 @@ public class Main {
     terminal.clear();
 
     Screen res = new RecommendEventScreen(terminal, graph);
-    Screen ws = new WellcomeScreen(terminal, res);
+    Screen rus = new RecommendUserScreen(terminal, graph);
+    Screen fes = new FindEventScreen(terminal, loader);
+    Screen fus = new FindUserScreen(terminal, loader);
+    Screen ws = new WellcomeScreen(terminal, res, rus, fes, fus);
 
     terminal.setScreen(ws);
     terminal.showScreen();

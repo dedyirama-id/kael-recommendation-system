@@ -3,15 +3,35 @@ package org.kael.views;
 import org.kael.Screen;
 import org.kael.utils.Terminal;
 
+/**
+ * Layar selamat datang untuk navigasi awal aplikasi.
+ */
 public class WellcomeScreen implements Screen {
   private final Terminal terminal;
   private final Screen recommendEventScreen;
+  private final Screen recommendUserScreen;
+  private final Screen findEventScreen;
+  private final Screen findUserScreen;
 
-  public WellcomeScreen(Terminal terminal, Screen recommendEventScreen) {
+  /**
+   * Membuat layar selamat datang.
+   *
+   * @param terminal             utilitas terminal untuk I/O.
+   * @param recommendEventScreen layar rekomendasi event yang akan dipanggil ketika dipilih.
+   */
+  public WellcomeScreen(Terminal terminal, Screen recommendEventScreen, Screen recommendUserScreen, Screen findEventScreen, Screen findUserScreen) {
     this.terminal = terminal;
     this.recommendEventScreen = recommendEventScreen;
+    this.recommendUserScreen = recommendUserScreen;
+    this.findEventScreen = findEventScreen;
+    this.findUserScreen = findUserScreen;
   }
 
+  /**
+   * Menampilkan menu utama dengan pilihan navigasi atau keluar.
+   *
+   * @throws Exception jika navigasi layar gagal atau fitur belum diimplementasi.
+   */
   @Override
   public void show() throws Exception {
     while (true) {
@@ -23,23 +43,36 @@ public class WellcomeScreen implements Screen {
       int choice = this.terminal.getOption(new String[]{
           "Exit [x]",
           "Recommend Event",
-          "Recommend User"
-      }, "Choose (0-2): ");
+          "Recommend User",
+          "Find Event by Id",
+          "Find User by Id",
+      }, "Choose (0-4): ");
 
       switch (choice) {
         case 0 -> {
-            return;
-            }
+          return;
+        }
         case 1 -> {
-            this.recommendEventScreen.show();
-            }
-        case 2 -> throw new Exception("Not implemented yet!");
+          this.recommendEventScreen.show();
+        }
+        case 2 -> {
+          this.recommendUserScreen.show();
+        }
+        case 3 -> {
+          this.findEventScreen.show();
+        }
+        case 4 -> {
+          this.findUserScreen.show();
+        }
       }
     }
   }
 
+  /**
+   * Mencetak logo ASCII art aplikasi ke terminal.
+   */
   private void printLogo() {
-    String logo =  """
+    String logo = """
         ██╗  ██╗ █████╗ ███████╗██╗    \s
         ██║ ██╔╝██╔══██╗██╔════╝██║    \s
         █████╔╝ ███████║█████╗  ██║    \s
@@ -49,7 +82,7 @@ public class WellcomeScreen implements Screen {
         """;
 
     String[] logoParts = logo.split("\n");
-    for (String part: logoParts) {
+    for (String part : logoParts) {
       this.terminal.printCenter(part);
     }
   }
