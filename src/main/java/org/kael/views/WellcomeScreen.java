@@ -37,8 +37,10 @@ public class WellcomeScreen implements Screen {
       int choice = this.terminal.getOption(new String[]{
           "Exit [x]",
           "Recommend Event",
-          "Recommend User"
-      }, "Choose (0-2): ");
+          "Recommend User",
+          "Find Event by Id",
+          "Find User by Id",
+      }, "Choose (0-4): ");
 
       switch (choice) {
         case 0 -> {
