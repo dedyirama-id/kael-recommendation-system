@@ -60,7 +60,7 @@ public class Terminal {
    * @param text teks yang dicetak sebagai prompt sebelum menunggu input.
    */
   public void waitForInput(String text) {
-    this.getLine(text);
+    this.getLine(Text.brightBlack(text));
   }
 
   /**
@@ -100,7 +100,7 @@ public class Terminal {
    * @return string penuh yang dimasukkan pengguna.
    */
   public String getLine(String prompt) {
-    System.out.print(prompt);
+    System.out.print(Text.brightBlue(prompt));
 
     return this.sc.nextLine();
   }

@@ -46,13 +46,8 @@ public class RecommendEventScreen implements Screen {
     int MAX_RECOMMENDATION_COUNT = 5;
 
     terminal.clear();
-    terminal.printDivider();
     System.out.println(Text.bold("# Recommend Event"));
     terminal.printDivider();
-
-    String[] tokens = terminal.getLine("Describe your profile: ").split("\\s+");
-    terminal.printDivider();
-
     int choice = terminal.getOption(
         new String[]{
             "Cancel [x]",
@@ -64,9 +59,13 @@ public class RecommendEventScreen implements Screen {
 
     if (choice == 0) {
       System.out.println(Text.brightBlack("Cancelled. No recommendation generated."));
-      terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
+      terminal.waitForInput("Press ENTER to continue...");
       return;
     }
+
+    terminal.clear();
+    String[] tokens = terminal.getLine("Describe your profile: ").split("\\s+");
+    terminal.printDivider();
 
     Set<Object> seeds = new LinkedHashSet<>();
     for (String token : tokens) {
@@ -79,7 +78,9 @@ public class RecommendEventScreen implements Screen {
     }
 
     if (seeds.isEmpty()) {
-      System.out.println(Text.warning("Maaf, belum ada node yang cocok dengan deskripsi profil Anda."));
+      System.out.println(Text.warning("Sorry, nothing matched your profile!"));
+      terminal.printDivider();
+      this.terminal.waitForInput("Press ENTER to continue...");
       return;
     }
 
@@ -108,9 +109,9 @@ public class RecommendEventScreen implements Screen {
 
       default -> {
         System.out.println(
-            Text.warning("Pilihan algoritma tidak valid.")
+            Text.warning("Invalid choice!")
         );
-        terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
+        terminal.waitForInput("Press ENTER to continue...");
         terminal.clear();
         yield Map.of();
       }
@@ -118,9 +119,10 @@ public class RecommendEventScreen implements Screen {
 
     if (scores.isEmpty()) {
       System.out.println(
-          Text.warning("Maaf, belum ada node yang cocok dengan deskripsi profil Anda.")
+          Text.warning("Sorry, there is no node matches your profile!")
       );
-      terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
+      terminal.printDivider();
+      terminal.waitForInput("Press ENTER to continue...");
       terminal.clear();
       return;
     }
@@ -143,21 +145,21 @@ public class RecommendEventScreen implements Screen {
 
     for (Scored<Event> scoredEvent : events) {
       Event event = scoredEvent.getValue();
-      terminal.printDivider();
       System.out.println("ID          : " + event.getId());
       System.out.println("Organizer   : " + event.getOrganizer());
       System.out.println("Title       : " + event.getTitle());
       System.out.println("Desc        : " + event.getDescription());
       System.out.println("Relv. Score : " + scoredEvent.getScore());
+      terminal.printDivider();
     }
 
     if (events.isEmpty()) {
       System.out.println(
-          Text.warning("Maaf, belum ada rekomendasi yang cocok untuk profil anda.")
+          Text.warning("Sorry, there is no recommendation for your profile yet!")
       );
     }
 
-    terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
+    terminal.waitForInput("Press ENTER to continue...");
     terminal.clear();
   }
 }

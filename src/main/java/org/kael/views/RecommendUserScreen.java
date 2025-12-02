@@ -17,7 +17,7 @@ import org.kael.utils.Terminal;
 import org.kael.utils.Text;
 
 /**
- * Layar untuk memberikan rekomendasi user berdasarkan deskripsi event
+ * Layar untuk memberikan rekomendasi user berdasarkan deskripsi event.
  */
 public class RecommendUserScreen implements Screen {
     private final Terminal terminal;
@@ -43,18 +43,13 @@ public class RecommendUserScreen implements Screen {
      */
     @Override
     public void show() throws Exception {
-        final int MAX_RECOMMENDATION_COUNT = 5;
+        int MAX_RECOMMENDATION_COUNT = 5;
 
         terminal.clear();
-        terminal.printDivider();
         System.out.println(Text.bold("# Recommend User"));
         terminal.printDivider();
-
-        String[] tokens = terminal.getLine("Describe your event: ").split("\\s+");
-        terminal.printDivider();
-
         int choice = terminal.getOption(
-            new String[] {
+            new String[]{
                 "Cancel [x]",
                 "Recommend using BFS",
                 "Recommend using Personalized PageRank"
@@ -64,10 +59,13 @@ public class RecommendUserScreen implements Screen {
 
         if (choice == 0) {
             System.out.println(Text.brightBlack("Cancelled. No recommendation generated."));
-            terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
-            terminal.clear();
+            terminal.waitForInput("Press ENTER to continue...");
             return;
         }
+
+        terminal.clear();
+        String[] tokens = terminal.getLine("Describe your event: ").split("\\s+");
+        terminal.printDivider();
 
         Set<Object> seeds = new LinkedHashSet<>();
         for (String token : tokens) {
@@ -82,9 +80,9 @@ public class RecommendUserScreen implements Screen {
         }
 
         if (seeds.isEmpty()) {
-            System.out.println(Text.warning("Maaf, belum ada node yang cocok dengan deskripsi event Anda."));
-            terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
-            terminal.clear();
+            System.out.println(Text.warning("Sorry, nothing matched your event description!"));
+            terminal.printDivider();
+            terminal.waitForInput("Press ENTER to continue...");
             return;
         }
 
@@ -111,8 +109,8 @@ public class RecommendUserScreen implements Screen {
                 );
             }
             default -> {
-                System.out.println(Text.warning("Pilihan algoritma tidak valid."));
-                terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
+                System.out.println(Text.warning("Invalid choice!"));
+                terminal.waitForInput("Press ENTER to continue...");
                 terminal.clear();
                 yield Map.of();
             }
@@ -120,9 +118,10 @@ public class RecommendUserScreen implements Screen {
 
         if (scores.isEmpty()) {
             System.out.println(
-                Text.warning("Maaf, belum ada node yang cocok dengan deskripsi event Anda.")
+                Text.warning("Sorry, there is no node matches your event description!")
             );
-            terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
+            terminal.printDivider();
+            terminal.waitForInput("Press ENTER to continue...");
             terminal.clear();
             return;
         }
@@ -146,19 +145,19 @@ public class RecommendUserScreen implements Screen {
 
         for (Scored<User> scoredUser : users) {
             User user = scoredUser.getValue();
-            terminal.printDivider();
             System.out.println("ID          : " + user.getId());
             System.out.println("Name        : " + user.getName());
             System.out.println("Relv. Score : " + scoredUser.getScore());
+            terminal.printDivider();
         }
+
         if (users.isEmpty()) {
             System.out.println(
-                Text.warning("Maaf, belum ada rekomendasi user yang cocok dengan deskripsi event yang Anda berikan.")
+                Text.warning("Sorry, there is no recommendation for your event yet!")
             );
         }
 
-        terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
+        terminal.waitForInput("Press ENTER to continue...");
         terminal.clear();
     }
-
 }
