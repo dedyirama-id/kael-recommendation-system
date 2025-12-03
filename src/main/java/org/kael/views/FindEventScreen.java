@@ -2,6 +2,7 @@ package org.kael.views;
 
 import org.kael.GraphLoader;
 import org.kael.Screen;
+import org.kael.entities.Event;
 import org.kael.utils.Terminal;
 
 /**
@@ -11,35 +12,50 @@ public class FindEventScreen implements Screen {
   private final Terminal terminal;
   private final GraphLoader graphLoader;
 
-  /**
-   * Membuat find event screen.
-   *
-   * @param terminal    utilitas terminal untuk I/O.
-   * @param graphLoader objek graph loader untuk mendapatkan vertex graph berdasarkan Id.
-   */
   public FindEventScreen(Terminal terminal, GraphLoader graphLoader) {
     this.terminal = terminal;
     this.graphLoader = graphLoader;
   }
 
-  /**
-   * Menampilkan layar untuk mencari event berdasarkan id event.
-   *
-   * @throws Exception jika terjadi error atau fitur belum diimplementasi.
-   */
   @Override
   public void show() throws Exception {
     while (true) {
-      this.terminal.clear();
-      this.terminal.printCenter("# Lorem Ipsum");
-      this.terminal.printDivider();
+      terminal.clear();
+      terminal.printCenter("# Find Event by ID");
+      terminal.printDivider();
 
-      throw new Exception("Method not implemented yet!");
-      // TODO:
-      // - Ambil input id event
-      // - Dapatkan dan simpan objek event dari graphLoader
-      // - Jika event tidak ditemukan, print error
-      // - Jika event ditemukan, print semua detail dari event tersebut
+      // Input ID event
+      String id = terminal.getLine("Masukkan ID Event (kosong untuk kembali): ");
+
+      if (id == null || id.trim().isEmpty()) {
+        return; // kembali ke menu sebelumnya
+      }
+
+      // Ambil event dari map events
+      Event event = graphLoader.getEvents().get(id.trim());
+
+      if (event == null) {
+        System.out.print("ERROR: Event dengan ID '" + id + "' tidak ditemukan!\n");
+        terminal.waitForInput("Tekan ENTER untuk melanjutkan...");
+        continue;
+      }
+
+      // Tampilkan detail event
+      System.out.print("Event ditemukan:\n");
+      terminal.printDivider();
+
+      System.out.print("ID Event     : " + event.getId() + "\n");
+      System.out.print("Judul        : " + event.getTitle() + "\n");
+      System.out.print("Slug         : " + event.getSlug() + "\n");
+      System.out.print("Deskripsi    : " + event.getDescription() + "\n");
+      System.out.print("Organizer    : " + event.getOrganizer() + "\n");
+      System.out.print("Tanggal Mulai: " + event.getStartDate() + "\n");
+      System.out.print("Tanggal Selesai: " + event.getEndDate() + "\n");
+      System.out.print("URL          : " + event.getUrl() + "\n");
+
+      terminal.printDivider();
+      terminal.waitForInput("Tekan ENTER untuk kembali...");
+      this.terminal.clear();
     }
   }
 }
