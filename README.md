@@ -23,7 +23,7 @@ Mengembangkan sistem rekomendasi berbasis graph dengan memodelkan event, tag, da
 
 ## 4. Representasi Data, Struktur Data, Alur Program
 ## 4.1 Representasi Data & Struktur Data
-Secara konsep, program ini adalah sistem rekomendasi **berbasis graf untuk User, Event, dan Tag yang ditampilkan lewat terminal.
+Secara konsep, program ini adalah sistem rekomendasi **berbasis graf** untuk **User, Event, dan Tag** yang ditampilkan lewat terminal.
 
 **4.1.1 Entity Utama: User, Event, Tag**
 
@@ -41,10 +41,15 @@ Tiga entity ini didefinisikan di package org.kael.entities:
    - equals & hashCode berdasarkan id sehingga dua object User dan id sama akan dianggap sama
    - Kode:
 > public class User {
+> 
 > private final String id;
+> 
 > private final String name;
+> 
 > private final String profile;
+> 
 > ...
+> 
 > }
 
 3. Event: 
