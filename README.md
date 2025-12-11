@@ -80,7 +80,204 @@ Melalui pendekatan ini, PPR mampu menemukan event yang relevan tidak hanya karen
 
 ## 7. Arsitektur Program
 
+Struktur program dibangun untuk memisahkan logika algoritma, model data, pemrosesan graf, antarmuka terminal, dan layar tampilan. Berikut penjelasan folder dan file utama pada proyek:
+```txt
+kael-recommendation-system/
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── org
+    │   │       └── kael
+    │   │           ├── Main.java
+    │   │           ├── GraphLoader.java
+    │   │           ├── Screen.java
+    │   │           ├── algorithms
+    │   │           │   ├── Personalization.java
+    │   │           │   ├── Scored.java
+    │   │           │   └── Sort.java
+    │   │           ├── entities
+    │   │           │   ├── User.java
+    │   │           │   ├── Event.java
+    │   │           │   └── Tag.java
+    │   │           ├── models
+    │   │           │   └── Graph.java
+    │   │           ├── utils
+    │   │           │   ├── Terminal.java
+    │   │           │   └── Text.java
+    │   │           └── views
+    │   │               ├── WellcomeScreen.java
+    │   │               ├── RecommendEventScreen.java
+    │   │               ├── RecommendUserScreen.java
+    │   │               ├── FindEventScreen.java
+    │   │               ├── FindUserScreen.java
+    │   │               └── ShowGraphScreen.java
+    │   └── resources
+    │       ├── users.csv
+    │       ├── events.csv
+    │       ├── tags.csv
+    │       ├── user_event.csv
+    │       ├── user_tag.csv
+    │       └── event_tag.csv
+    └── test
+        └── java
+```
+### File Utama
+
+#### `Main.java`
+
+Entry point program. Menginisialisasi terminal, memuat graph dari dataset CSV melalui `GraphLoader`, lalu menjalankan layar awal (wellcome screen). Program CLI berjalan sepenuhnya melalui navigasi antarlayar.
+
+#### `Screen.java`
+
+Interface yang digunakan seluruh layar tampilan (UI). 
+
+#### `GraphLoader.java`
+
+Modul yang bertanggung jawab membaca file CSV dari folder `resources`, membangun objek `User`, `Event`, dan `Tag`, lalu memetakan relasi antar-entitas ke dalam graph menggunakan `Graph<T>`.
+
+### Folder `entities/`
+
+Berisi representasi objek domain yang menjadi node dalam graph.
+
+#### `User.java`
+
+Mewakili data pengguna, berisi id, nama, dan deskripsi profil.
+
+#### `Event.java`
+
+Mewakili data event, termasuk id, judul, deskripsi, penyelenggara, tanggal, URL, dll.
+
+#### `Tag.java`
+
+Mewakili tag atau kategori, digunakan untuk memetakan kategori user dan event.
+
+### Folder `models/`
+
+#### `Graph.java`
+
+Struktur graf generik yang mendukung penambahan vertex, edge, pencarian neighbor, dan utilitas lain. Graph digunakan sebagai representasi relasi antar user, event, dan tag. Mendukung graph berarah maupun tidak.
+
+### Folder `algorithms/`
+
+Berisi algoritma untuk proses penilaian dan pengurutan rekomendasi.
+
+#### `Personalization.java`
+
+Mengimplementasikan:
+
+- Algoritma **BFS-based recommendation**
+- Algoritma **Personalized PageRank (PPR)** untuk menentukan skor relevansi event berdasarkan deskripsi profil pengguna.
+
+#### `Scored.java`
+
+Wrapper generik yang menyimpan objek beserta skor relevansinya.
+
+#### `Sort.java`
+
+Implementasi selection sort, digunakan untuk mengurutkan hasil rekomendasi berdasarkan skor.
+
+### Folder `utils/`
+
+#### `Terminal.java`
+
+Abstraksi untuk input dan output CLI. Mengatur:
+
+- pembacaan input user,
+- pembersihan layar,
+- navigasi antar screen.
+
+#### `Text.java`
+
+Utility untuk format teks (warna, bold, highlight) agar tampilan CLI lebih mudah dibaca.
+
+### Folder `views/`
+
+Berisi seluruh layar antarmuka pengguna.
+
+#### `WellcomeScreen.java`
+
+Layar awal yang menampilkan menu utama program.
+
+#### `RecommendEventScreen.java`
+
+Mengelola proses rekomendasi event:
+
+- menerima input profil,
+- menjalankan BFS atau PPR,
+- menampilkan hasil rekomendasi.
+
+#### `RecommendUserScreen.java`
+
+Mirip dengan event, tetapi memberi rekomendasi pengguna lain yang relevan.
+
+#### `FindEventScreen.java`
+
+Fitur pencarian event berdasarkan id event.
+
+#### `FindUserScreen.java`
+
+Fitur pencarian user berdasarkan id user.
+
+#### `ShowGraphScreen.java`
+
+Menampilkan graph berupa node dan daftar tetangga nya.
+
+### Folder `resources/`
+
+Dataset berupa CSV:
+
+- `users.csv`
+- `events.csv`
+- `tags.csv`
+- `user_tag.csv`
+- `event_tag.csv`
+- `user_event.csv`
+
+Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event**.
+
 ## 8. Cara Menjalankan Program
+
+> Jika menggunakan intellij, klon repository melalui fitur new project from github repository pada intellij. Kemudian untuk menjalankan program, klik tombol `run` pada intellij.
+
+1. Persiapan lingkungan
+   - Pastikan sudah terpasang:
+     - Java Development Kit (JDK) versi 23 (atau minimal versi yang kompatibel).
+     - Apache Maven.
+   - Pastikan perintah `java` dan `mvn` sudah dikenali di terminal (dicek dengan `java -version` dan `mvn -version`).
+
+2. Kloning dan buka project
+   - Klon project ini
+     ```bash
+     git clone https://github.com/dedyirama-id/kael-recommendation-system.git
+     ```
+   - Masuk ke folder project, misalnya:
+     ```bash
+     cd kael-recommendation-system
+     ```
+
+3. Kompilasi program
+   - Jalankan perintah:
+     ```bash
+     mvn clean compile
+     ```
+   - Perintah ini akan mengompilasi seluruh kode sumber ke dalam folder `target`.
+
+4. Menjalankan program
+   - Setelah kompilasi berhasil, jalankan aplikasi dengan:
+     ```bash
+     mvn exec:java
+     ```
+   - Maven akan mengeksekusi kelas utama `org.kael.Main` sesuai konfigurasi di `pom.xml`.
+
+5. Interaksi di terminal
+   - Program akan menampilkan menu awal di terminal.
+   - Gunakan input angka/teks sesuai instruksi di layar untuk:
+     - melihat rekomendasi event,
+     - melihat rekomendasi user,
+     - mencari event/user,
+     - atau menampilkan ringkasan graf.
+   - Ikuti pesan seperti “Press ENTER to continue...” untuk berpindah layar.
 
 ## 9. Pengujian dan Evaluasi
 
