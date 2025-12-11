@@ -24,8 +24,25 @@ Mengembangkan sistem rekomendasi berbasis graph dengan memodelkan event, tag, da
 ## 4. Representasi Data dan Struktur Data
 
 ## 5. Algoritma
+Bagian ini menjelaskan dua algoritma utama yang digunakan (atau direncanakan) pada sistem rekomendasi Ka’el, yaitu algoritma BFS yang dimodifikasi untuk proses rekomendasi, dan algoritma Personalized PageRank (PPR).
 ### 5.1 BFS Recommendation
+Algoritma BFS Recommendation digunakan untuk menjawab kebutuhan: bagaimana mencocokkan deskripsi profil pengguna dalam bentuk teks bebas dengan event-event yang relevan secara otomatis dan efisien. Profil pengguna terlebih dahulu dikonversi menjadi beberapa simpul awal (starting nodes) di dalam graf, misalnya node tag atau event yang mengandung kata kunci dari profil tersebut. Dari kumpulan starting nodes ini, sistem menjalankan penelusuran Breadth-First Search (BFS) hingga kedalaman tertentu dan memberikan skor pada setiap node yang dilewati.
+
+Secara garis besar, alur kerja BFS Recommendation adalah sebagai berikut:
+- Profil pengguna dipecah menjadi kata-kata, lalu setiap kata dicocokkan dengan teks pada node graf (tag, event, dan entitas lain) untuk mendapatkan starting nodes.
+- Untuk setiap starting node, algoritma BFS dijalankan level demi level hingga batas maxDepth. Setiap node yang berhasil dikunjungi dalam batas kedalaman ini diberi tambahan skor sebesar 1 pada sebuah map skor.
+- Skor dari semua starting nodes dijumlahkan pada map yang sama, sehingga node yang sering tercapai dari berbagai starting nodes akan memiliki skor total yang lebih tinggi.
+- Setelah penelusuran selesai, skor dinormalisasi sehingga totalnya menjadi 1 dan dapat dipahami sebagai distribusi “peluang relevansi” terhadap profil pengguna.
+- Map skor kemudian diubah menjadi daftar, diurutkan dari skor tertinggi, lalu hanya node yang mewakili event yang diambil sebagai Top-N rekomendasi.
+
+Dengan pendekatan ini, BFS Recommendation tidak sekadar mencari event berdasarkan kecocokan kata kunci, tetapi mempertimbangkan juga kedekatan struktural di dalam graf user–tag–event. Hal ini membuat proses pencarian menjadi otomatis, terarah, dan lebih efisien dibandingkan pencarian manual.
+
 ### 5.2 Personalized PageRank
+Personalized PageRank (PPR) disiapkan sebagai pengembangan dari BFS Recommendation untuk memberikan rekomendasi yang lebih kaya dan sensitif terhadap struktur global graf, namun tetap terpersonalisasi terhadap profil pengguna tertentu. Berbeda dengan BFS yang fokus pada kedekatan lokal dalam radius kedalaman tertentu, PPR memodelkan proses random walk di sepanjang graf dengan kemungkinan restart ke node-node yang mewakili preferensi pengguna.
+
+Intuisi kerjanya adalah sebagai berikut: bayangkan seorang “walker” yang berjalan di graf. Pada setiap langkah, dengan probabilitas tertentu walker mengikuti edge ke tetangga secara acak, dan dengan probabilitas lain ia “kembali” ke sekumpulan node yang menggambarkan profil user (vektor personalisasi). Node yang sering dikunjungi dalam jangka panjang akan memperoleh skor PPR tinggi, dan skor ini diinterpretasikan sebagai ukuran relevansi node tersebut terhadap profil pengguna. Secara implementasi, sistem menyusun vektor personalisasi dari node-node yang relevan dengan profil user, menginisialisasi vektor peringkat awal, lalu melakukan iterasi pembaruan nilai peringkat sampai konvergen: sebagian skor dialokasikan untuk restart ke profil user, dan sisanya didistribusikan merata ke tetangga melalui edge yang ada. Nilai akhir Personalized PageRank kemudian digunakan sebagai skor rekomendasi, dengan cara mengurutkan node berdasarkan skor dan memilih node event dengan nilai tertinggi.
+
+Melalui pendekatan ini, PPR mampu menemukan event yang relevan tidak hanya karena dekat secara langsung dengan profil user, tetapi juga karena berada pada posisi penting dalam struktur graf secara keseluruhan. Ini menjawab kebutuhan sistem untuk melakukan pencarian dan rekomendasi event yang relevan berdasarkan deskripsi profil pengguna secara otomatis dan efisien, terutama ketika jumlah user dan event semakin besar dan hubungan antar entitas menjadi lebih kompleks.
 
 ## 6. Alur Program
 
