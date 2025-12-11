@@ -1,7 +1,7 @@
 # Sistem Rekomendasi Berbasis Graph
 
 Mata kuliah : Algoritma dan Struktur Data  
-Kelompok    : D-2
+Kelompok    : D-2  
 Anggota     :  
   1. 5026241016 Christabel Arrowina Putri Tjahyadi	
   2. 5026241059 Nayla Rameyza Alya	
