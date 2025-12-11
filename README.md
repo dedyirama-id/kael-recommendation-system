@@ -40,17 +40,15 @@ Tiga entity ini didefinisikan di package org.kael.entities:
      - profile: deskripsi profile (minat, profesi, dsb)
    - equals & hashCode berdasarkan id sehingga dua object User dan id sama akan dianggap sama
    - Kode:
-public class User {
-  private final String id;
-  private final String name;
-  private final String profile;
-  ...
-}
+> public class User {
+> private final String id;
+> private final String name;
+> private final String profile;
+> ...
+> }
 
-3. Event:
+3. Event: 
 4. Tag:
-
-
 
 ## 5. Algoritma
 Bagian ini menjelaskan dua algoritma utama yang digunakan (atau direncanakan) pada sistem rekomendasi Ka’el, yaitu algoritma BFS yang dimodifikasi untuk proses rekomendasi, dan algoritma Personalized PageRank (PPR).
