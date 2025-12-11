@@ -29,18 +29,23 @@ Secara konsep, program ini adalah sistem rekomendasi **berbasis graf untuk User,
 
 Tiga entity ini didefinisikan di package org.kael.entities:
 1. User
-
->> public class User {
-
->> private final String id;
-
->> private final String name;
-
->> private final String profile;
-
->> ...
-
->> }
+   - Dipakai untuk merepresentasikan pengguna
+   - Field:
+     - id: ID unik user
+     - name: nama user
+     - profile: deskripsi profile
+   - Dipakai di:
+     - GraphLoader: memuat user dari user csv
+     - Graph<Object>: user jadi vertex di graf
+     - profile: deskripsi profile (minat, profesi, dsb)
+   - equals & hashCode berdasarkan id sehingga dua object User dan id sama akan dianggap sama
+   - Kode:
+public class User {
+  private final String id;
+  private final String name;
+  private final String profile;
+  ...
+}
 
 3. Event:
 4. Tag:
