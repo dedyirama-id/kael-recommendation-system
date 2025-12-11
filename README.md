@@ -21,7 +21,24 @@ Mahasiswa sering kesulitan menemukan event yang sesuai dengan minat, jurusan, se
 **Rekomendasi Event Menggunakan Graph dengan Modified BFS sebagai Sistem Scoring**
 Mengembangkan sistem rekomendasi berbasis graph dengan memodelkan event, tag, dan pengguna sebagai node. Hubungan antar entitas direpresentasikan sebagai edge.  Semua node saling terhubung sehingga relevansi bisa dihitung berdasarkan kedekatan dalam graf.
 
-## 4. Representasi Data dan Struktur Data
+## 4. Representasi Data, Struktur Data, Alur Program
+## 4.1 Representasi Data & Struktur Data
+Secara konsep, program ini adalah sistem rekomendasi **berbasis graf untuk User, Event, dan Tag yang ditampilkan lewat terminal.
+
+**4.1.1 Entity Utama: User, Event, Tag**
+Tiga entity ini didefinisikan di package org.kael.entities:
+> 1. User
+>    
+>> public class User {
+  private final String id;
+  private final String name;
+  private final String profile;
+  ...
+}
+> 3. Event:
+> 4. Tag:
+
+
 
 ## 5. Algoritma
 Bagian ini menjelaskan dua algoritma utama yang digunakan (atau direncanakan) pada sistem rekomendasi Ka’el, yaitu algoritma BFS yang dimodifikasi untuk proses rekomendasi, dan algoritma Personalized PageRank (PPR).
