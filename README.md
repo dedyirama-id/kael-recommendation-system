@@ -26,16 +26,24 @@ Mengembangkan sistem rekomendasi berbasis graph dengan memodelkan event, tag, da
 Secara konsep, program ini adalah sistem rekomendasi **berbasis graf untuk User, Event, dan Tag yang ditampilkan lewat terminal.
 
 **4.1.1 Entity Utama: User, Event, Tag**
+
 Tiga entity ini didefinisikan di package org.kael.entities:
-1. User 
+1. User
+
 >> public class User {
+
 >> private final String id;
+
 >> private final String name;
+
 >> private final String profile;
+
 >> ...
+
 >> }
-> 3. Event:
-> 4. Tag:
+
+3. Event:
+4. Tag:
 
 
 
