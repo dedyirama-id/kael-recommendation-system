@@ -27,14 +27,13 @@ Secara konsep, program ini adalah sistem rekomendasi **berbasis graf untuk User,
 
 **4.1.1 Entity Utama: User, Event, Tag**
 Tiga entity ini didefinisikan di package org.kael.entities:
-> 1. User
->    
+1. User 
 >> public class User {
-  private final String id;
-  private final String name;
-  private final String profile;
-  ...
-}
+>> private final String id;
+>> private final String name;
+>> private final String profile;
+>> ...
+>> }
 > 3. Event:
 > 4. Tag:
 
