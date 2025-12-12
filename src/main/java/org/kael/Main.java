@@ -18,7 +18,7 @@ public class Main {
    * @throws Exception ketika proses inisialisasi atau render screen gagal.
    */
   public static void main(String[] args) throws Exception {
-    Terminal terminal = new Terminal(100);
+    Terminal terminal = new Terminal(50);
     GraphLoader loader = new GraphLoader();
     Graph<Object> graph = loader.loadGraph();
 

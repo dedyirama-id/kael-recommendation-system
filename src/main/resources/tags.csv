@@ -1,16 +1,312 @@
 id,name,slug
-T1,Data Science,data-science
-T2,Machine Learning,machine-learning
-T3,UI UX Design,ui-ux-design
-T4,Competitive Programming,competitive-programming
-T5,Scholarship,scholarship
-T6,Internship,internship
-T7,Web Development,web-development
-T8,Mobile Development,mobile-development
-T9,Cybersecurity,cybersecurity
-T10,Cloud Computing,cloud-computing
-T11,Product Management,product-management
-T12,Entrepreneurship,entrepreneurship
-T13,English,english
-T14,Career Development,career-development
-T15,Hackathon,hackathon
+T1,business,business
+T2,personal branding,personal-branding
+T3,content creation,content-creation
+T4,seo,seo
+T5,website design,website-design
+T6,ieeebig2026,ieeebig2026
+T7,ieeeitssb,ieeeitssb
+T8,gobig,gobig
+T9,recruitment,recruitment
+T10,ieeebig,ieeebig
+T11,inilhoits2026,inilhoits2026
+T12,itssurabaya,itssurabaya
+T13,navigasieksplorasi,navigasieksplorasi
+T14,volunteer band,volunteer-band
+T15,its,its
+T16,alumni,alumni
+T17,sharing session,sharing-session
+T18,sistem informasi,sistem-informasi
+T19,karier,karier
+T20,profesional,profesional
+T21,badminton,badminton
+T22,sparring,sparring
+T23,workshop,workshop
+T24,lomba,lomba
+T25,bcc,bcc
+T26,bpc,bpc
+T27,ctf,ctf
+T28,hackathon,hackathon
+T29,webinar,webinar
+T30,career preparation,career-preparation
+T31,cv,cv
+T32,hyred,hyred
+T33,notifikasi,notifikasi
+T34,event baru,event-baru
+T35,event,event
+T36,kael,kael
+T37,info,info
+T38,business case,business-case
+T39,bootcamp,bootcamp
+T40,dwgd,dwgd
+T41,students,students
+T42,mentoring,mentoring
+T43,certificate,certificate
+T44,olahraga,olahraga
+T45,mahasiswa,mahasiswa
+T46,pemrograman,pemrograman
+T47,machine learning,machine-learning
+T48,algoritma,algoritma
+T49,perlombaan,perlombaan
+T50,beasiswa luar negeri,beasiswa-luar-negeri
+T51,tedxsurabaya,tedxsurabaya
+T52,tedxsurabaya2025,tedxsurabaya2025
+T53,tedx,tedx
+T54,ideasworthspreading,ideasworthspreading
+T55,ideaschangeeverything,ideaschangeeverything
+T56,surabaya,surabaya
+T57,communityevent,communityevent
+T58,exhibition,exhibition
+T59,seni,seni
+T60,km its,km-its
+T61,startup,startup
+T62,korporasi,korporasi
+T63,akademik,akademik
+T64,media,media
+T65,schooling,schooling
+T66,summit,summit
+T67,festival,festival
+T68,talkshow,talkshow
+T69,music,music
+T70,entrepreneurship,entrepreneurship
+T71,culinary,culinary
+T72,leadership,leadership
+T73,training,training
+T74,soft skill,soft-skill
+T75,volunteer,volunteer
+T76,band,band
+T77,mystery,mystery
+T78,magic,magic
+T79,talk show,talk-show
+T80,art,art
+T81,competition,competition
+T82,umkm,umkm
+T83,web design,web-design
+T84,national,national
+T85,social impact,social-impact
+T86,digital innovation,digital-innovation
+T87,pemateri,pemateri
+T88,try out,try-out
+T89,bimbel,bimbel
+T90,mlbb,mlbb
+T91,mobile legends,mobile-legends
+T92,tournament,tournament
+T93,online,online
+T94,offline,offline
+T95,ieeebig 2026,ieeebig-2026
+T96,staff,staff
+T97,volunteering,volunteering
+T98,community,community
+T99,kesehatan mental,kesehatan-mental
+T100,stress,stress
+T101,sukses,sukses
+T102,dwp its,dwp-its
+T103,pendidikan,pendidikan
+T104,founderleadership,founderleadership
+T105,founderhub,founderhub
+T106,founderhubsummit2025,founderhubsummit2025
+T107,team building,team-building
+T108,energy,energy
+T109,conversion,conversion
+T110,pvsyst,pvsyst
+T111,solar system design,solar-system-design
+T112,photovoltaic system,photovoltaic-system
+T113,simulation,simulation
+T114,optimization,optimization
+T115,on-grid pv system,on-grid-pv-system
+T116,off-grid pv system,off-grid-pv-system
+T117,pumping pv system,pumping-pv-system
+T118,komunal,komunal
+T119,forum,forum
+T120,manage,manage
+T121,2025,2025
+T122,parkiran mobil sistem informasi its,parkiran-mobil-sistem-informasi-its
+T123,pakaian bapel standar its,pakaian-bapel-standar-its
+T124,booth,booth
+T125,permainan,permainan
+T126,hadiah,hadiah
+T127,permen gratis,permen-gratis
+T128,mental health,mental-health
+T129,pkm,pkm
+T130,labsistementerprise,labsistementerprise
+T131,sisteminformasiits,sisteminformasiits
+T132,pkm2026,pkm2026
+T133,open recruitment,open-recruitment
+T134,bayucaraka,bayucaraka
+T135,2025/2026,2025-2026
+T136,aeromodelling,aeromodelling
+T137,uav,uav
+T138,itsrobotics,itsrobotics
+T139,kumpul,kumpul
+T140,pertemuan,pertemuan
+T141,warkop,warkop
+T142,innovation,innovation
+T143,control system,control-system
+T144,project,project
+T145,oil and gas industry,oil-and-gas-industry
+T146,energy technologies,energy-technologies
+T147,pertamina hulu mahakam,pertamina-hulu-mahakam
+T148,kumpul komunal,kumpul-komunal
+T149,form,form
+T150,wajib,wajib
+T151,seminar proposal,seminar-proposal
+T152,lab. se,lab-se
+T153,tutor,tutor
+T154,eas,eas
+T155,dsi,dsi
+T156,hmsi,hmsi
+T157,mata kuliah,mata-kuliah
+T158,profile,profile
+T159,kompetisi,kompetisi
+T160,consulting,consulting
+T161,president,president
+T162,vice president,vice-president
+T163,billiard,billiard
+T164,fun match,fun-match
+T165,himadev,himadev
+T166,letsstudyabroad,letsstudyabroad
+T167,lsaxfs2,lsaxfs2
+T168,itsinternationaloffice,itsinternationaloffice
+T169,itsglobalengagement,itsglobalengagement
+T170,studyabroadjourney,studyabroadjourney
+T171,futurestartshere,futurestartshere
+T172,futsal,futsal
+T173,sparing,sparing
+T174,himasika,himasika
+T175,hmtk,hmtk
+T176,inovasi digital,inovasi-digital
+T177,sprint,sprint
+T178,retrospective,retrospective
+T179,fasor belakang stadion,fasor-belakang-stadion
+T180,kelayakan,kelayakan
+T181,merchandise,merchandise
+T182,pre-order,pre-order
+T183,lab sistem enterprise,lab-sistem-enterprise
+T184,t-shirt,t-shirt
+T185,tumbler mug,tumbler-mug
+T186,enamel pin,enamel-pin
+T187,sticker pack,sticker-pack
+T188,scholarship,scholarship
+T189,peta scholar,peta-scholar
+T190,bisnis,bisnis
+T191,cyber security,cyber-security
+T192,business competition,business-competition
+T193,schoters,schoters
+T194,english club,english-club
+T195,universitas widyatama,universitas-widyatama
+T196,beasiswa,beasiswa
+T197,essay,essay
+T198,plc,plc
+T199,automation,automation
+T200,programming,programming
+T201,control systems,control-systems
+T202,factory automation,factory-automation
+T203,data science,data-science
+T204,sma,sma
+T205,smk,smk
+T206,ma,ma
+T207,ptn,ptn
+T208,pts,pts
+T209,analisis data,analisis-data
+T210,ara 7.0,ara-7-0
+T211,information security,information-security
+T212,siswa,siswa
+T213,slta,slta
+T214,internship,internship
+T215,business development,business-development
+T216,aither,aither
+T217,marketing,marketing
+T218,communication,communication
+T219,opportunity,opportunity
+T220,seminar,seminar
+T221,proposal,proposal
+T222,antar jemput,antar-jemput
+T223,transportasi,transportasi
+T224,sap,sap
+T225,learning hub,learning-hub
+T226,student,student
+T227,self-paced learning,self-paced-learning
+T228,zoom,zoom
+T229,group belajar,group-belajar
+T230,tutorial,tutorial
+T231,algoritma struktur data,algoritma-struktur-data
+T232,young talents,young-talents
+T233,pendataan,pendataan
+T234,bencana,bencana
+T235,banjir,banjir
+T236,tanah longsor,tanah-longsor
+T237,artificial intelligence,artificial-intelligence
+T238,ai engineer,ai-engineer
+T239,generative ai engineer,generative-ai-engineer
+T240,mlops engineer,mlops-engineer
+T241,data scientist,data-scientist
+T242,ai android developer,ai-android-developer
+T243,ai multi-platform app developer,ai-multi-platform-app-developer
+T244,ai front-end developer,ai-front-end-developer
+T245,ai back-end developer,ai-back-end-developer
+T246,dicoding,dicoding
+T247,indosat ooredoo hutchison,indosat-ooredoo-hutchison
+T248,ui/ux design,ui-ux-design
+T249,design competition,design-competition
+T250,smart design,smart-design
+T251,figma,figma
+T252,adobe xd,adobe-xd
+T253,wisewidyatama2026,wisewidyatama2026
+T254,innovera2026,innovera2026
+T255,himasiutama,himasiutama
+T256,sisteminformasi,sisteminformasi
+T257,indonesia,indonesia
+T258,online class,online-class
+T259,networking,networking
+T260,personal development,personal-development
+T261,gap year,gap-year
+T262,academic,academic
+T263,arts,arts
+T264,talent,talent
+T265,inspirational,inspirational
+T266,digital creator,digital-creator
+T267,coding camp,coding-camp
+T268,dbs foundation,dbs-foundation
+T269,pelatihan it,pelatihan-it
+T270,gratis,gratis
+T271,sertifikat,sertifikat
+T272,full-stack web developer,full-stack-web-developer
+T273,hard skill,hard-skill
+T274,pengembangan diri,pengembangan-diri
+T275,ai,ai
+T276,pelatihan gratis,pelatihan-gratis
+T277,accounting,accounting
+T278,ui,ui
+T279,awards,awards
+T280,student organization,student-organization
+T281,free event,free-event
+T282,work management,work-management
+T283,free,free
+T284,icma,icma
+T285,financial markets,financial-markets
+T286,online course,online-course
+T287,full scholarship,full-scholarship
+T288,asean,asean
+T289,china,china
+T290,master,master
+T291,phd,phd
+T292,generative ai,generative-ai
+T293,komunitas belajar,komunitas-belajar
+T294,asia pacific,asia-pacific
+T295,cybersecurity,cybersecurity
+T296,cryptography,cryptography
+T297,web exploitation,web-exploitation
+T298,forensics,forensics
+T299,pwn,pwn
+T300,reverse engineering,reverse-engineering
+T301,tdc talk,tdc-talk
+T302,seaweed farming,seaweed-farming
+T303,gen z,gen-z
+T304,business strategy,business-strategy
+T305,ekonomi syariah,ekonomi-syariah
+T306,halal industry,halal-industry
+T307,young entrepreneurs,young-entrepreneurs
+T308,consumer trust,consumer-trust
+T309,sustainability,sustainability
+T310,industrial engineering,industrial-engineering
+T311,mti itb,mti-itb
