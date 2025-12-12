@@ -12,6 +12,7 @@ public class WellcomeScreen implements Screen {
   private final Screen recommendUserScreen;
   private final Screen findEventScreen;
   private final Screen findUserScreen;
+  private final Screen showGraphScreen;
 
   /**
    * Membuat layar selamat datang.
@@ -19,12 +20,18 @@ public class WellcomeScreen implements Screen {
    * @param terminal             utilitas terminal untuk I/O.
    * @param recommendEventScreen layar rekomendasi event yang akan dipanggil ketika dipilih.
    */
-  public WellcomeScreen(Terminal terminal, Screen recommendEventScreen, Screen recommendUserScreen, Screen findEventScreen, Screen findUserScreen) {
+  public WellcomeScreen(Terminal terminal,
+                        Screen recommendEventScreen,
+                        Screen recommendUserScreen,
+                        Screen findEventScreen,
+                        Screen findUserScreen,
+                        Screen showGraphScreen) {
     this.terminal = terminal;
     this.recommendEventScreen = recommendEventScreen;
     this.recommendUserScreen = recommendUserScreen;
     this.findEventScreen = findEventScreen;
     this.findUserScreen = findUserScreen;
+    this.showGraphScreen = showGraphScreen;
   }
 
   /**
@@ -36,7 +43,6 @@ public class WellcomeScreen implements Screen {
   public void show() throws Exception {
     while (true) {
       this.terminal.clear();
-      this.terminal.printDivider();
       this.printLogo();
       this.terminal.printCenter("Welcome To Ka'el Recommendation System!");
       this.terminal.printDivider();
@@ -46,7 +52,8 @@ public class WellcomeScreen implements Screen {
           "Recommend User",
           "Find Event by Id",
           "Find User by Id",
-      }, "Choose (0-4): ");
+          "Show Graph",
+      }, "Choose (0-5): ");
 
       switch (choice) {
         case 0 -> {
@@ -63,6 +70,9 @@ public class WellcomeScreen implements Screen {
         }
         case 4 -> {
           this.findUserScreen.show();
+        }
+        case 5 -> {
+          this.showGraphScreen.show();
         }
       }
     }

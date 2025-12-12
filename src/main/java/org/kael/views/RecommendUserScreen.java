@@ -17,8 +17,7 @@ import org.kael.utils.Terminal;
 import org.kael.utils.Text;
 
 /**
- * Layar untuk memberikan rekomendasi user lain
- * yang memiliki minat event/tag yang serupa.
+ * Layar untuk memberikan rekomendasi user berdasarkan deskripsi event.
  */
 public class RecommendUserScreen implements Screen {
     private final Terminal terminal;
@@ -36,47 +35,109 @@ public class RecommendUserScreen implements Screen {
     }
 
     /**
-     * Menjalankan alur rekomendasi: menerima deskripsi profil,
-     * menghitung skor kedekatan dengan BFS personalisasi, mengurutkan,
-     * dan menampilkan beberapa user teratas.
+     * Menjalankan alur rekomendasi: menerima deskripsi event,
+     * menghitung skor kedekatan dengan algoritma yang dipilih pengguna,
+     * mengurutkan, dan menampilkan beberapa user teratas.
      *
      * @throws Exception jika proses penghitungan atau penampilan layar gagal.
      */
     @Override
     public void show() throws Exception {
-        this.terminal.clear();
-        this.terminal.printDivider();
+        int MAX_RECOMMENDATION_COUNT = 5;
+
+        terminal.clear();
         System.out.println(Text.bold("# Recommend User"));
-        this.terminal.printDivider();
+        terminal.printDivider();
+        int choice = terminal.getOption(
+            new String[]{
+                "Cancel [x]",
+                "Recommend using BFS",
+                "Recommend using Personalized PageRank"
+            },
+            "Choose recommendation algorithm (0-2): "
+        );
 
-        String[] tokens = this.terminal.getLine("Describe your event: ").split("\\s+");
+        if (choice == 0) {
+            System.out.println(Text.brightBlack("Cancelled. No recommendation generated."));
+            terminal.waitForInput("Press ENTER to continue...");
+            return;
+        }
 
-        Map<Object, Integer> scores = new HashMap<>();
+        terminal.clear();
+        String[] tokens = terminal.getLine("Describe your event: ").split("\\s+");
+        terminal.printDivider();
 
+        Set<Object> seeds = new LinkedHashSet<>();
         for (String token : tokens) {
-            if (token.isBlank()) continue;
-            Set<Object> matches = this.graph.search(token);
-            if (matches == null || matches.isEmpty()) {
+            if (token.isBlank()) {
                 continue;
             }
 
-            for (Object vertex : new LinkedHashSet<>(matches)) {
-                Personalization.bfsScoring(this.graph, vertex, 1, scores);
+            Set<Object> matches = graph.search(token);
+            if (matches != null && !matches.isEmpty()) {
+                seeds.addAll(matches);
             }
+        }
+
+        if (seeds.isEmpty()) {
+            System.out.println(Text.warning("Sorry, nothing matched your event description!"));
+            terminal.printDivider();
+            terminal.waitForInput("Press ENTER to continue...");
+            return;
+        }
+
+        Map<Object, Double> scores = switch (choice) {
+            case 1 -> {
+                yield Personalization.bfsRecommendation(
+                    this.graph,
+                    seeds,
+                    1
+                );
+            }
+            case 2 -> {
+                Map<Object, Double> personalization = new HashMap<>();
+                for (Object seed : seeds) {
+                    personalization.merge(seed, 1.0, Double::sum);
+                }
+
+                yield Personalization.personalizedPageRank(
+                    this.graph,
+                    personalization,
+                    0.15,
+                    50,
+                    1e-6
+                );
+            }
+            default -> {
+                System.out.println(Text.warning("Invalid choice!"));
+                terminal.waitForInput("Press ENTER to continue...");
+                terminal.clear();
+                yield Map.of();
+            }
+        };
+
+        if (scores.isEmpty()) {
+            System.out.println(
+                Text.warning("Sorry, there is no node matches your event description!")
+            );
+            terminal.printDivider();
+            terminal.waitForInput("Press ENTER to continue...");
+            terminal.clear();
+            return;
         }
 
         List<Scored<Object>> scoredList = Personalization.toScoredList(scores);
         Scored<Object>[] scoredArray = scoredList.toArray(Scored[]::new);
         Sort.selectionSort(scoredArray);
 
-        final int MAX_USERS = 5;
         List<Scored<User>> users = new ArrayList<>();
 
+        // Ambil hanya node bertipe User
         for (Scored<Object> scored : scoredArray) {
             Object value = scored.getValue();
             if (value instanceof User user) {
                 users.add(Scored.of(user, scored.getScore()));
-                if (users.size() >= MAX_USERS) {
+                if (users.size() >= MAX_RECOMMENDATION_COUNT) {
                     break;
                 }
             }
@@ -84,17 +145,19 @@ public class RecommendUserScreen implements Screen {
 
         for (Scored<User> scoredUser : users) {
             User user = scoredUser.getValue();
-            terminal.printDivider();
             System.out.println("ID          : " + user.getId());
             System.out.println("Name        : " + user.getName());
             System.out.println("Relv. Score : " + scoredUser.getScore());
+            terminal.printDivider();
         }
 
         if (users.isEmpty()) {
-            System.out.println(Text.warning("Maaf, belum ada rekomendasi user yang cocok dengan deskripsi event yang anda berikan."));
+            System.out.println(
+                Text.warning("Sorry, there is no recommendation for your event yet!")
+            );
         }
 
-        terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
-        this.terminal.clear();
+        terminal.waitForInput("Press ENTER to continue...");
+        terminal.clear();
     }
 }

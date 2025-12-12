@@ -3,11 +3,20 @@ package org.kael.algorithms;
 import java.util.Objects;
 
 /**
- * Wrapper untuk menyimpan sebuah nilai (value) beserta skor (score),
- * misalnya hasil perhitungan Personalized PageRank atau algoritma lain.
+ * Kelas pembungkus yang menyimpan sebuah nilai beserta skor numeriknya.
+ * <p>
+ * Kelas ini dapat digunakan, misalnya, untuk menyimpan hasil perhitungan
+ * algoritma pemeringkatan seperti Personalized PageRank atau algoritma
+ * penilaian lainnya.
+ * </p>
  *
- * Urutan "alami" (Comparable) class ini adalah berdasarkan score secara
- * menurun (descending): skor lebih besar dianggap "lebih tinggi" (datang duluan).
+ * <p>
+ * Urutan alami ({@link Comparable}) untuk kelas ini didasarkan pada skor
+ * secara menurun (descending): skor yang lebih besar dianggap memiliki
+ * prioritas lebih tinggi.
+ * </p>
+ *
+ * @param <T> tipe nilai yang dibungkus
  */
 public final class Scored<T> implements Comparable<Scored<T>> {
 
@@ -15,10 +24,10 @@ public final class Scored<T> implements Comparable<Scored<T>> {
   private final double score;
 
   /**
-   * Membuat wrapper nilai dengan skor terkait.
+   * Membuat instance {@code Scored} dengan nilai dan skor terkait.
    *
-   * @param value nilai asli yang ingin diberi skor.
-   * @param score skor numerik yang terasosiasi dengan nilai.
+   * @param value nilai yang akan dibungkus; boleh {@code null}
+   * @param score skor numerik yang berasosiasi dengan nilai
    */
   public Scored(T value, double score) {
     this.value = value;
@@ -26,30 +35,34 @@ public final class Scored<T> implements Comparable<Scored<T>> {
   }
 
   /**
-   * Mengambil nilai asli yang dibungkus.
+   * Mengembalikan nilai yang dibungkus oleh objek ini.
    *
-   * @return nilai generik yang disimpan.
+   * @return nilai yang disimpan, dapat berupa {@code null}
    */
   public T getValue() {
     return value;
   }
 
   /**
-   * Mengambil skor yang terasosiasi dengan nilai.
+   * Mengembalikan skor yang berasosiasi dengan nilai.
    *
-   * @return skor dalam bentuk double.
+   * @return skor dalam bentuk {@code double}
    */
   public double getScore() {
     return score;
   }
 
   /**
-   * Urutkan descending berdasarkan score.
-   * Score lebih besar -> muncul lebih dulu.
+   * Membandingkan objek ini dengan objek {@code Scored} lain berdasarkan skor.
+   * <p>
+   * Perbandingan dilakukan secara menurun (descending), sehingga objek
+   * dengan skor lebih besar akan dianggap "lebih kecil" dalam konteks
+   * pengurutan dan muncul lebih dahulu.
+   * </p>
    *
-   * @param other entri Scored lain untuk dibandingkan.
-   * @return nilai negatif jika this memiliki skor lebih besar (datang lebih dulu),
-   *         nilai positif jika skor lebih kecil, atau 0 jika sama.
+   * @param other objek {@code Scored} lain yang akan dibandingkan
+   * @return nilai negatif jika objek ini memiliki skor lebih besar dari {@code other},
+   *         nilai positif jika skor lebih kecil, atau {@code 0} jika skornya sama
    */
   @Override
   public int compareTo(Scored<T> other) {
@@ -57,10 +70,15 @@ public final class Scored<T> implements Comparable<Scored<T>> {
   }
 
   /**
-   * Membandingkan kesetaraan berdasarkan nilai dan skor.
+   * Menentukan kesetaraan antara objek ini dan objek lain.
+   * <p>
+   * Dua objek {@code Scored} dianggap setara jika keduanya memiliki nilai
+   * ({@code value}) dan skor ({@code score}) yang sama.
+   * </p>
    *
-   * @param o objek lain yang dibandingkan.
-   * @return true jika objek adalah Scored dengan value dan score yang sama.
+   * @param o objek lain yang akan dibandingkan
+   * @return {@code true} jika objek lain merupakan {@code Scored} dengan
+   *         nilai dan skor yang sama; {@code false} jika tidak
    */
   @Override
   public boolean equals(Object o) {
@@ -70,15 +88,21 @@ public final class Scored<T> implements Comparable<Scored<T>> {
         Objects.equals(value, scored.value);
   }
 
+  /**
+   * Mengembalikan nilai hash yang konsisten dengan implementasi {@link #equals(Object)}.
+   *
+   * @return nilai hash untuk objek ini
+   */
   @Override
   public int hashCode() {
     return Objects.hash(value, score);
   }
 
   /**
-   * Representasi string sederhana berupa pasangan value dan score.
+   * Mengembalikan representasi string dari objek ini untuk keperluan
+   * debugging atau logging.
    *
-   * @return String terformat untuk debugging/logging.
+   * @return representasi string yang memuat nilai dan skor
    */
   @Override
   public String toString() {
@@ -89,15 +113,14 @@ public final class Scored<T> implements Comparable<Scored<T>> {
   }
 
   /**
-   * Static factory untuk sedikit mempersingkat pemanggilan.
+   * Membuat instance {@code Scored} baru menggunakan metode static factory.
    *
-   * @param value nilai generik yang ingin dibungkus.
-   * @param score skor terkait.
-   * @param <T>   tipe nilai.
-   * @return instans Scored baru.
+   * @param value nilai yang akan dibungkus
+   * @param score skor numerik yang berasosiasi dengan nilai
+   * @param <T>   tipe nilai
+   * @return instance {@code Scored} baru yang berisi nilai dan skor tersebut
    */
   public static <T> Scored<T> of(T value, double score) {
     return new Scored<>(value, score);
   }
 }
-

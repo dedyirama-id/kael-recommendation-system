@@ -18,26 +18,21 @@ public class Main {
    * @throws Exception ketika proses inisialisasi atau render screen gagal.
    */
   public static void main(String[] args) throws Exception {
-    Terminal terminal = new Terminal(100);
+    Terminal terminal = new Terminal(50);
     GraphLoader loader = new GraphLoader();
-
     Graph<Object> graph = loader.loadGraph();
-    System.out.println("# Loaded Graph");
-    terminal.printDivider();
-    System.out.println(graph);
-    terminal.printDivider();
-    terminal.waitForInput("Press ENTER to continue...");
-    terminal.clear();
 
     Screen res = new RecommendEventScreen(terminal, graph);
     Screen rus = new RecommendUserScreen(terminal, graph);
     Screen fes = new FindEventScreen(terminal, loader);
     Screen fus = new FindUserScreen(terminal, loader);
-    Screen ws = new WellcomeScreen(terminal, res, rus, fes, fus);
+    Screen sgs = new ShowGraphScreen(terminal, graph);
+    Screen ws = new WellcomeScreen(terminal, res, rus, fes, fus, sgs);
 
     terminal.setScreen(ws);
     terminal.showScreen();
 
+    terminal.clear();
     System.out.println(Text.green("Goodbye!"));
   }
 }
