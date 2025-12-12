@@ -9,6 +9,51 @@
 3. 5026241083 Gusti Ayu Wedha Putri Surya
 4. 5026241107 Dedy Irama
 
+## Daftar Isi
+
+- [Sistem Rekomendasi Berbasis Graph](#sistem-rekomendasi-berbasis-graph)
+  - [Daftar Isi](#daftar-isi)
+  - [1. Latar Belakang](#1-latar-belakang)
+  - [2. Deskripsi Masalah](#2-deskripsi-masalah)
+  - [3. Solusi](#3-solusi)
+  - [4. Representasi Data, Struktur Data, Alur Program](#4-representasi-data-struktur-data-alur-program)
+    - [4.1 Representasi Data dan Struktur Data](#41-representasi-data-dan-struktur-data)
+      - [4.1.1 Entitas Utama: User, Event, Tag](#411-entitas-utama-user-event-tag)
+        - [1. User](#1-user)
+        - [2. Event](#2-event)
+        - [3. Tag](#3-tag)
+  - [5. Algoritma](#5-algoritma)
+    - [5.1 BFS Recommendation](#51-bfs-recommendation)
+    - [5.2 Personalized PageRank](#52-personalized-pagerank)
+  - [6. Alur Program](#6-alur-program)
+  - [7. Arsitektur Program](#7-arsitektur-program)
+    - [File Utama](#file-utama)
+      - [`Main.java`](#mainjava)
+      - [`Screen.java`](#screenjava)
+      - [`GraphLoader.java`](#graphloaderjava)
+    - [Folder `entities/`](#folder-entities)
+      - [`User.java`](#userjava)
+      - [`Event.java`](#eventjava)
+      - [`Tag.java`](#tagjava)
+    - [Folder `models/`](#folder-models)
+      - [`Graph.java`](#graphjava)
+    - [Folder `algorithms/`](#folder-algorithms)
+      - [`Personalization.java`](#personalizationjava)
+      - [`Scored.java`](#scoredjava)
+      - [`Sort.java`](#sortjava)
+    - [Folder `utils/`](#folder-utils)
+      - [`Terminal.java`](#terminaljava)
+      - [`Text.java`](#textjava)
+    - [Folder `views/`](#folder-views)
+      - [`WellcomeScreen.java`](#wellcomescreenjava)
+      - [`RecommendEventScreen.java`](#recommendeventscreenjava)
+      - [`RecommendUserScreen.java`](#recommenduserscreenjava)
+      - [`FindEventScreen.java`](#findeventscreenjava)
+      - [`FindUserScreen.java`](#finduserscreenjava)
+      - [`ShowGraphScreen.java`](#showgraphscreenjava)
+    - [Folder `resources/`](#folder-resources)
+  - [8. Cara Menjalankan Program](#8-cara-menjalankan-program)
+
 ## 1. Latar Belakang
 
 Mahasiswa sering kesulitan menemukan event yang sesuai dengan minat, jurusan, serta tujuan pengembangan diri mereka. Hal ini disebabkan oleh informasi event yang tersebar di berbagai platform dan tidak terkurasi secara terpusat, sehingga banyak peluang penting akhirnya terlewat.
@@ -364,9 +409,3 @@ Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event*
      - atau menampilkan ringkasan graf.
 
    - Ikuti pesan seperti “Press ENTER to continue...” untuk berpindah layar.
-
-## Referensi
-
-Paliwal, J. (n.d.). _Graph-Based Recommendation System_ [Kaggle Notebook]. Kaggle.
-[https://www.kaggle.com/code/jahnavipaliwal/graph-based-recommendation-system](https://www.kaggle.com/code/jahnavipaliwal/graph-based-recommendation-system)
-(Accessed on: 11 Desember 2025)
