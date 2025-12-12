@@ -89,6 +89,8 @@ public class RecommendEventScreen implements Screen {
       System.out.println("Organizer   : " + event.getOrganizer());
       System.out.println("Title       : " + event.getTitle());
       System.out.println("Desc        : " + event.getDescription());
+      System.out.println("Start Date  : " + event.getStartDate());
+      System.out.println("End Date    : " + event.getEndDate());
       System.out.println("Relv. Score : " + scoredEvent.getScore());
     }
 
