@@ -1,6 +1,5 @@
 package org.kael.views;
 
-import org.kael.GraphLoader;
 import org.kael.Screen;
 import org.kael.models.Graph;
 import org.kael.utils.Terminal;
