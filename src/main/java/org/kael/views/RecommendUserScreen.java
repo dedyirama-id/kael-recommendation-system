@@ -147,6 +147,7 @@ public class RecommendUserScreen implements Screen {
             User user = scoredUser.getValue();
             System.out.println("ID          : " + user.getId());
             System.out.println("Name        : " + user.getName());
+            System.out.println("Email       : " + user.getEmail());
             System.out.println("Relv. Score : " + scoredUser.getScore());
             terminal.printDivider();
         }
