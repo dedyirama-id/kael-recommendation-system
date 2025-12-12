@@ -40,21 +40,47 @@ Tiga entity ini didefinisikan di package org.kael.entities:
      - profile: deskripsi profile (minat, profesi, dsb)
    - equals & hashCode berdasarkan id sehingga dua object User dan id sama akan dianggap sama
    - Kode:
-> public class User {
-> 
-> private final String id;
-> 
-> private final String name;
-> 
-> private final String profile;
-> 
-> ...
-> 
-> }
+     ```java
+     public class User {
+     private final String id;
+     private final String name;
+     private final String profile
+     ...
+     }
+     ```
 
-3. Event: 
-4. Tag:
-
+2. Event:
+   - Representasi event yang direkomendasikan.
+   - Field: info dasar event (judul, deskripsi, tanggal, url, organizer).
+   - Dipakai di:
+     - GraphLoader: data dari events csv
+     - Graph<Object>: event jadi vertex
+     - RecommendEventScreen dan FindEventScreen
+   - equals & hashCode berdasarkan id
+   - kode
+     ```java
+     public class Tag {
+     private final String id;
+     private final String name;
+     private final String slug;
+     ...
+     }
+     ```
+3. Tag:
+  - Representasi tag/kategori/minat.
+  - Dipakai untuk menghubungkan user & event melalui minat/hastag.
+  - Dipakai di:
+    - GraphLoader: data dari tags.cvs
+    - Graph<Object>: tag jadi vertex
+  - Kode:
+    ```java
+    public class Tag {
+      private final String id;
+      private final String name;
+      private final String slug;
+    ...
+    }
+    ```
 ## 5. Algoritma
 Bagian ini menjelaskan dua algoritma utama yang digunakan (atau direncanakan) pada sistem rekomendasi Ka’el, yaitu algoritma BFS yang dimodifikasi untuk proses rekomendasi, dan algoritma Personalized PageRank (PPR).
 ### 5.1 BFS Recommendation
