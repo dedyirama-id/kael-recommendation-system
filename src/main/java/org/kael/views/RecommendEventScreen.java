@@ -36,108 +36,47 @@ public class RecommendEventScreen implements Screen {
 
   /**
    * Menjalankan alur rekomendasi: menerima deskripsi profil,
-   * menghitung skor kedekatan dengan algoritma yang dipilih pengguna,
-   * mengurutkan, dan menampilkan beberapa event teratas.
+   * menghitung skor kedekatan dengan BFS personalisasi, mengurutkan,
+   * dan menampilkan beberapa event teratas.
    *
    * @throws Exception jika proses penghitungan atau penampilan layar gagal.
    */
   @Override
   public void show() throws Exception {
-    int MAX_RECOMMENDATION_COUNT = 5;
-
-    terminal.clear();
+    this.terminal.clear();
+    this.terminal.printDivider();
     System.out.println(Text.bold("# Recommend Event"));
-    terminal.printDivider();
-    int choice = terminal.getOption(
-        new String[]{
-            "Cancel [x]",
-            "Recommend using BFS",
-            "Recommend using Personalized PageRank"
-        },
-        "Choose recommendation algorithm (0-2): "
-    );
+    this.terminal.printDivider();
 
-    if (choice == 0) {
-      System.out.println(Text.brightBlack("Cancelled. No recommendation generated."));
-      terminal.waitForInput("Press ENTER to continue...");
-      return;
-    }
+    String[] tokens = this.terminal.getLine("Describe your profile: ").split("\\s+");
 
-    terminal.clear();
-    String[] tokens = terminal.getLine("Describe your profile: ").split("\\s+");
-    terminal.printDivider();
+    Map<Object, Integer> scores = new HashMap<>();
 
-    Set<Object> seeds = new LinkedHashSet<>();
     for (String token : tokens) {
       if (token.isBlank()) continue;
-
-      Set<Object> matches = graph.search(token);
-      if (matches != null && !matches.isEmpty()) {
-        seeds.addAll(matches);
-      }
-    }
-
-    if (seeds.isEmpty()) {
-      System.out.println(Text.warning("Sorry, nothing matched your profile!"));
-      terminal.printDivider();
-      this.terminal.waitForInput("Press ENTER to continue...");
-      return;
-    }
-
-    Map<Object, Double> scores = switch (choice) {
-      case 1 -> {
-        yield Personalization.bfsRecommendation(
-            this.graph,
-            seeds,
-            1
-        );
-      }
-      case 2 -> {
-        Map<Object, Double> personalization = new HashMap<>();
-        for (Object seed : seeds) {
-          personalization.merge(seed, 1.0, Double::sum);
-        }
-
-        yield Personalization.personalizedPageRank(
-            this.graph,
-            personalization,
-            0.15,
-            50,
-            1e-6
-        );
+      Set<Object> matches = this.graph.search(token);
+      if (matches == null || matches.isEmpty()) {
+        continue;
       }
 
-      default -> {
-        System.out.println(
-            Text.warning("Invalid choice!")
-        );
-        terminal.waitForInput("Press ENTER to continue...");
-        terminal.clear();
-        yield Map.of();
+      for (Object vertex : new LinkedHashSet<>(matches)) {
+        Personalization.bfsScoring(this.graph, vertex, 1, scores);
       }
-    };
-
-    if (scores.isEmpty()) {
-      System.out.println(
-          Text.warning("Sorry, there is no node matches your profile!")
-      );
-      terminal.printDivider();
-      terminal.waitForInput("Press ENTER to continue...");
-      terminal.clear();
-      return;
     }
 
     List<Scored<Object>> scoredList = Personalization.toScoredList(scores);
+
     Scored<Object>[] scoredArray = scoredList.toArray(Scored[]::new);
     Sort.selectionSort(scoredArray);
 
+    final int MAX_EVENTS = 5;
     List<Scored<Event>> events = new ArrayList<>();
 
     for (Scored<Object> scored : scoredArray) {
       Object value = scored.getValue();
       if (value instanceof Event event) {
         events.add(Scored.of(event, scored.getScore()));
-        if (events.size() >= MAX_RECOMMENDATION_COUNT) {
+        if (events.size() >= MAX_EVENTS) {
           break;
         }
       }
@@ -145,21 +84,20 @@ public class RecommendEventScreen implements Screen {
 
     for (Scored<Event> scoredEvent : events) {
       Event event = scoredEvent.getValue();
+      terminal.printDivider();
       System.out.println("ID          : " + event.getId());
       System.out.println("Organizer   : " + event.getOrganizer());
       System.out.println("Title       : " + event.getTitle());
       System.out.println("Desc        : " + event.getDescription());
+      System.out.println("Start Date  : " + event.getStartDate());
+      System.out.println("End Date    : " + event.getEndDate());
       System.out.println("Relv. Score : " + scoredEvent.getScore());
-      terminal.printDivider();
     }
 
-    if (events.isEmpty()) {
-      System.out.println(
-          Text.warning("Sorry, there is no recommendation for your profile yet!")
-      );
+    if(events.isEmpty()) {
+      System.out.println(Text.warning("Maaf, belum ada rekomendasi yang cocok untuk profil anda."));
     }
-
-    terminal.waitForInput("Press ENTER to continue...");
-    terminal.clear();
+    terminal.waitForInput(Text.brightBlack("Press ENTER to continue..."));
+    this.terminal.clear();
   }
 }
