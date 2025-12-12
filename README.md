@@ -11,7 +11,11 @@
 
 ## 1. Latar Belakang
 
-Mahasiswa sering kesulitan menemukan event yang sesuai dengan minat, jurusan, serta tujuan pengembangan diri mereka. Hal ini disebabkan oleh informasi event yang tersebar di berbagai platform dan tidak terkurasi secara terpusat, sehingga banyak peluang penting akhirnya terlewat. Ka’el awalnya dikembangkan dalam mata kuliah Manajemen Proyek Tangkas (MPT) sebagai sebuah platform yang mampu mengumpulkan berbagai event, mengelompokkannya berdasarkan topik dan kategori, serta menyediakan sistem rekomendasi yang menyesuaikan dengan profil setiap mahasiswa. Platform ini juga dirancang agar mudah diakses melalui Web maupun WhatsApp. Untuk mendukung fitur rekomendasi tersebut, Ka’el memerlukan struktur data yang dapat memodelkan relasi antara user, tag, dan event, serta algoritma yang mampu menilai tingkat kedekatan dan relevansi event terhadap kebutuhan pengguna.
+Mahasiswa sering kesulitan menemukan event yang sesuai dengan minat, jurusan, serta tujuan pengembangan diri mereka. Hal ini disebabkan oleh informasi event yang tersebar di berbagai platform dan tidak terkurasi secara terpusat, sehingga banyak peluang penting akhirnya terlewat.
+
+Ka’el awalnya dikembangkan dalam mata kuliah Manajemen Proyek Tangkas (MPT) sebagai sebuah platform yang mampu mengumpulkan berbagai event, mengelompokkannya berdasarkan topik dan kategori, serta menyediakan sistem rekomendasi yang menyesuaikan dengan profil setiap mahasiswa. Platform ini juga dirancang agar mudah diakses melalui Web maupun WhatsApp.
+
+Untuk mendukung fitur rekomendasi tersebut, Ka’el memerlukan struktur data yang dapat memodelkan relasi antara user, tag, dan event, serta algoritma yang mampu menilai tingkat kedekatan dan relevansi event terhadap kebutuhan pengguna.
 
 ## 2. Deskripsi Masalah
 
@@ -27,52 +31,59 @@ Mengembangkan sistem rekomendasi berbasis graph dengan memodelkan event, tag, da
 
 ## 4. Representasi Data, Struktur Data, Alur Program
 
-### 4.1 Representasi Data & Struktur Data
+### 4.1 Representasi Data dan Struktur Data
 
 Secara konsep, program ini adalah sistem rekomendasi **berbasis graf** untuk **User, Event, dan Tag** yang ditampilkan lewat terminal.
 
-#### 4.1.1 Entity Utama: User, Event, Tag
+#### 4.1.1 Entitas Utama: User, Event, Tag
 
-Tiga entity ini didefinisikan di package org.kael.entities:
+Tiga entitas ini didefinisikan di package `org.kael.entities`.
 
 ##### 1. User
 
-- Dipakai untuk merepresentasikan pengguna
+- Dipakai untuk merepresentasikan pengguna.
 - Field:
-  - id: ID unik user
-  - name: nama user
-  - profile: deskripsi profile
+  - `id`: ID unik user
+  - `name`: nama user
+  - `profile`: deskripsi profil
 - Dipakai di:
-  - GraphLoader: memuat user dari user csv
-  - Graph: user jadi vertex di graf
-  - profile: deskripsi profile (minat, profesi, dsb)
-- equals & hashCode berdasarkan id sehingga dua object User dan id sama akan dianggap sama
+  - `GraphLoader`: memuat user dari CSV user
+  - `Graph`: user jadi vertex di graf
+- `equals()` dan `hashCode()` berdasarkan `id` sehingga dua objek `User` dengan `id` yang sama akan dianggap sama.
 - Kode:
 
   ```java
   public class User {
-  private final String id;
-  private final String name;
-  private final String profile
-  ...
+    private final String id;
+    private final String name;
+    private final String profile;
+    ...
   }
   ```
 
 ##### 2. Event
 
 - Representasi event yang direkomendasikan.
-- Field: info dasar event (judul, deskripsi, tanggal, url, organizer).
+- Field: info dasar event (judul, deskripsi, tanggal, URL, organizer).
 - Dipakai di:
-  - GraphLoader: data dari events csv
-  - Graph<Object>: event jadi vertex
-  - RecommendEventScreen dan FindEventScreen
-- equals & hashCode berdasarkan id
+
+  - `GraphLoader`: data dari `events.csv`
+  - `Graph<Object>`: event jadi vertex
+  - `RecommendEventScreen` dan `FindEventScreen`
+
+- `equals()` dan `hashCode()` berdasarkan `id`.
+- Kode:
 
   ```java
-  public class Tag {
+  public class Event {
     private final String id;
-    private final String name;
+    private final String title;
     private final String slug;
+    private final String description;
+    private final String organizer;
+    private final String startDate;
+    private final String endDate;
+    private final String url;
     ...
   }
   ```
@@ -80,18 +91,20 @@ Tiga entity ini didefinisikan di package org.kael.entities:
 ##### 3. Tag
 
 - Representasi tag/kategori/minat.
-- Dipakai untuk menghubungkan user & event melalui minat/hastag.
+- Dipakai untuk menghubungkan user dan event melalui minat/hashtag.
 - Dipakai di:
 
-  - GraphLoader: data dari tags.cvs
-  - Graph <Object>: tag jadi vertex
+  - `GraphLoader`: data dari `tags.csv`
+  - `Graph<Object>`: tag jadi vertex
+
+- Kode:
 
   ```java
   public class Tag {
     private final String id;
     private final String name;
     private final String slug;
-    ...
+  ...
   }
   ```
 
@@ -101,25 +114,35 @@ Bagian ini menjelaskan dua algoritma utama yang digunakan (atau direncanakan) pa
 
 ### 5.1 BFS Recommendation
 
-Algoritma BFS Recommendation digunakan untuk menjawab kebutuhan: bagaimana mencocokkan deskripsi profil pengguna dalam bentuk teks bebas dengan event-event yang relevan secara otomatis dan efisien. Profil pengguna terlebih dahulu dikonversi menjadi beberapa simpul awal (starting nodes) di dalam graf, misalnya node tag atau event yang mengandung kata kunci dari profil tersebut. Dari kumpulan starting nodes ini, sistem menjalankan penelusuran Breadth-First Search (BFS) hingga kedalaman tertentu dan memberikan skor pada setiap node yang dilewati.
+Algoritma BFS Recommendation digunakan untuk menjawab kebutuhan: bagaimana mencocokkan deskripsi profil pengguna dalam bentuk teks bebas dengan event-event yang relevan secara otomatis dan efisien.
+
+Profil pengguna terlebih dahulu dikonversi menjadi beberapa simpul awal (_starting nodes_) di dalam graf, misalnya node tag atau event yang mengandung kata kunci dari profil tersebut. Dari kumpulan _starting nodes_ ini, sistem menjalankan penelusuran Breadth-First Search (BFS) hingga kedalaman tertentu dan memberikan skor pada setiap node yang dilewati.
 
 Secara garis besar, alur kerja BFS Recommendation adalah sebagai berikut:
 
-- Profil pengguna dipecah menjadi kata-kata, lalu setiap kata dicocokkan dengan teks pada node graf (tag, event, dan entitas lain) untuk mendapatkan starting nodes.
-- Untuk setiap starting node, algoritma BFS dijalankan level demi level hingga batas maxDepth. Setiap node yang berhasil dikunjungi dalam batas kedalaman ini diberi tambahan skor sebesar 1 pada sebuah map skor.
-- Skor dari semua starting nodes dijumlahkan pada map yang sama, sehingga node yang sering tercapai dari berbagai starting nodes akan memiliki skor total yang lebih tinggi.
-- Setelah penelusuran selesai, skor dinormalisasi sehingga totalnya menjadi 1 dan dapat dipahami sebagai distribusi “peluang relevansi” terhadap profil pengguna.
+- Profil pengguna dipecah menjadi kata-kata, lalu setiap kata dicocokkan dengan teks pada node graf (tag, event, dan entitas lain) untuk mendapatkan _starting nodes_.
+- Untuk setiap _starting node_, algoritma BFS dijalankan level demi level hingga batas `maxDepth`. Setiap node yang berhasil dikunjungi dalam batas kedalaman ini diberi tambahan skor sebesar `1` pada sebuah map skor.
+- Skor dari semua _starting nodes_ dijumlahkan pada map yang sama, sehingga node yang sering tercapai dari berbagai _starting nodes_ akan memiliki skor total yang lebih tinggi.
+- Setelah penelusuran selesai, skor dinormalisasi sehingga totalnya menjadi `1` dan dapat dipahami sebagai distribusi “peluang relevansi” terhadap profil pengguna.
 - Map skor kemudian diubah menjadi daftar, diurutkan dari skor tertinggi, lalu hanya node yang mewakili event yang diambil sebagai Top-N rekomendasi.
 
-Dengan pendekatan ini, BFS Recommendation tidak sekadar mencari event berdasarkan kecocokan kata kunci, tetapi mempertimbangkan juga kedekatan struktural di dalam graf user–tag–event. Hal ini membuat proses pencarian menjadi otomatis, terarah, dan lebih efisien dibandingkan pencarian manual.
+Dengan pendekatan ini, BFS Recommendation tidak sekadar mencari event berdasarkan kecocokan kata kunci, tetapi juga mempertimbangkan kedekatan struktural di dalam graf user–tag–event. Hal ini membuat proses pencarian menjadi otomatis, terarah, dan lebih efisien dibandingkan pencarian manual.
 
 ### 5.2 Personalized PageRank
 
-Personalized PageRank (PPR) disiapkan sebagai pengembangan dari BFS Recommendation untuk memberikan rekomendasi yang lebih kaya dan sensitif terhadap struktur global graf, namun tetap terpersonalisasi terhadap profil pengguna tertentu. Berbeda dengan BFS yang fokus pada kedekatan lokal dalam radius kedalaman tertentu, PPR memodelkan proses random walk di sepanjang graf dengan kemungkinan restart ke node-node yang mewakili preferensi pengguna.
+Personalized PageRank (PPR) disiapkan sebagai pengembangan dari BFS Recommendation untuk memberikan rekomendasi yang lebih kaya dan sensitif terhadap struktur global graf, namun tetap terpersonalisasi terhadap profil pengguna tertentu.
 
-Intuisi kerjanya adalah sebagai berikut: bayangkan seorang “walker” yang berjalan di graf. Pada setiap langkah, dengan probabilitas tertentu walker mengikuti edge ke tetangga secara acak, dan dengan probabilitas lain ia “kembali” ke sekumpulan node yang menggambarkan profil user (vektor personalisasi). Node yang sering dikunjungi dalam jangka panjang akan memperoleh skor PPR tinggi, dan skor ini diinterpretasikan sebagai ukuran relevansi node tersebut terhadap profil pengguna. Secara implementasi, sistem menyusun vektor personalisasi dari node-node yang relevan dengan profil user, menginisialisasi vektor peringkat awal, lalu melakukan iterasi pembaruan nilai peringkat sampai konvergen: sebagian skor dialokasikan untuk restart ke profil user, dan sisanya didistribusikan merata ke tetangga melalui edge yang ada. Nilai akhir Personalized PageRank kemudian digunakan sebagai skor rekomendasi, dengan cara mengurutkan node berdasarkan skor dan memilih node event dengan nilai tertinggi.
+Berbeda dengan BFS yang fokus pada kedekatan lokal dalam radius kedalaman tertentu, PPR memodelkan proses _random walk_ di sepanjang graf dengan kemungkinan _restart_ ke node-node yang mewakili preferensi pengguna.
 
-Melalui pendekatan ini, PPR mampu menemukan event yang relevan tidak hanya karena dekat secara langsung dengan profil user, tetapi juga karena berada pada posisi penting dalam struktur graf secara keseluruhan. Ini menjawab kebutuhan sistem untuk melakukan pencarian dan rekomendasi event yang relevan berdasarkan deskripsi profil pengguna secara otomatis dan efisien, terutama ketika jumlah user dan event semakin besar dan hubungan antar entitas menjadi lebih kompleks.
+Intuisi kerjanya adalah sebagai berikut: bayangkan seorang “walker” yang berjalan di graf. Pada setiap langkah, dengan probabilitas tertentu walker mengikuti edge ke tetangga secara acak, dan dengan probabilitas lain ia “kembali” ke sekumpulan node yang menggambarkan profil user (vektor personalisasi).
+
+Node yang sering dikunjungi dalam jangka panjang akan memperoleh skor PPR tinggi, dan skor ini diinterpretasikan sebagai ukuran relevansi node tersebut terhadap profil pengguna.
+
+Secara implementasi, sistem menyusun vektor personalisasi dari node-node yang relevan dengan profil user, menginisialisasi vektor peringkat awal, lalu melakukan iterasi pembaruan nilai peringkat sampai konvergen: sebagian skor dialokasikan untuk _restart_ ke profil user, dan sisanya didistribusikan merata ke tetangga melalui edge yang ada.
+
+Nilai akhir Personalized PageRank kemudian digunakan sebagai skor rekomendasi, dengan cara mengurutkan node berdasarkan skor dan memilih node event dengan nilai tertinggi.
+
+Melalui pendekatan ini, PPR mampu menemukan event yang relevan tidak hanya karena dekat secara langsung dengan profil user, tetapi juga karena berada pada posisi penting dalam struktur graf secara keseluruhan.
 
 ## 6. Alur Program
 
@@ -268,7 +291,7 @@ Fitur pencarian user berdasarkan id user.
 
 #### `ShowGraphScreen.java`
 
-Menampilkan graph berupa node dan daftar tetangga nya.
+Menampilkan graph berupa node dan daftar tetangganya.
 
 ### Folder `resources/`
 
@@ -285,18 +308,20 @@ Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event*
 
 ## 8. Cara Menjalankan Program
 
-> Jika menggunakan intellij, klon repository melalui fitur new project from github repository pada intellij. Kemudian untuk menjalankan program, klik tombol `run` pada intellij.
+> Jika menggunakan IntelliJ, klon repository melalui fitur _New Project from Version Control_ pada IntelliJ. Kemudian untuk menjalankan program, klik tombol `Run` pada IntelliJ.
 
 1. Persiapan lingkungan
 
    - Pastikan sudah terpasang:
+
      - Java Development Kit (JDK) versi 23 (atau minimal versi yang kompatibel).
      - Apache Maven.
-   - Pastikan perintah `java` dan `mvn` sudah dikenali di terminal (dicek dengan `java -version` dan `mvn -version`).
+
+   - Pastikan perintah `java` dan `mvn` sudah dikenali di terminal (cek dengan `java -version` dan `mvn -version`).
 
 2. Kloning dan buka project
 
-   - Klon project ini
+   - Klon project ini:
 
      ```bash
      git clone https://github.com/dedyirama-id/kael-recommendation-system.git
@@ -329,21 +354,19 @@ Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event*
    - Maven akan mengeksekusi kelas utama `org.kael.Main` sesuai konfigurasi di `pom.xml`.
 
 5. Interaksi di terminal
+
    - Program akan menampilkan menu awal di terminal.
    - Gunakan input angka/teks sesuai instruksi di layar untuk:
+
      - melihat rekomendasi event,
      - melihat rekomendasi user,
      - mencari event/user,
      - atau menampilkan ringkasan graf.
+
    - Ikuti pesan seperti “Press ENTER to continue...” untuk berpindah layar.
-
-## 9. Pengujian dan Evaluasi
-
-## 10. Analisis Kompleksitas
 
 ## Referensi
 
-Paliwal, J. (n.d.). Graph-Based Recommendation System [Kaggle Notebook]. Kaggle.  
-<https://www.kaggle.com/code/jahnavipaliwal/graph-based-recommendation-system>  
+Paliwal, J. (n.d.). _Graph-Based Recommendation System_ [Kaggle Notebook]. Kaggle.
+[https://www.kaggle.com/code/jahnavipaliwal/graph-based-recommendation-system](https://www.kaggle.com/code/jahnavipaliwal/graph-based-recommendation-system)
 (Accessed on: 11 Desember 2025)
-
