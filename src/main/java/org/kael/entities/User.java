@@ -9,6 +9,7 @@ public class User {
   private final String id;
   private final String name;
   private final String profile;
+  private final String email;
 
   /**
    * Membuat User baru.
@@ -17,10 +18,11 @@ public class User {
    * @param name    nama pengguna.
    * @param profile deskripsi profil pengguna.
    */
-  public User(String id, String name, String profile) {
+  public User(String id, String name, String profile, String email) {
     this.id = id;
     this.name = name;
     this.profile = profile;
+    this.email = email;
   }
 
   /**
@@ -50,6 +52,14 @@ public class User {
     return profile;
   }
 
+  /**
+   * Mengambil email user.
+   *
+   * @return email.
+   */
+  public String getEmail() {
+    return email;
+  }
   /**
    * Kesetaraan berdasarkan ID user.
    *

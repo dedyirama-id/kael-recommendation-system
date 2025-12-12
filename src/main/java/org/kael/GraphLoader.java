@@ -83,7 +83,7 @@ public class GraphLoader {
         throw new IOException("Invalid row in users.csv: " + String.join(",", row));
       }
       String id = row[0].trim();
-      User user = new User(id, row[1].trim(), row[2].trim());
+      User user = new User(id, row[1].trim(), row[2].trim(), row[3].trim());
       users.put(id, user);
       graph.addVertex(user);
     }
