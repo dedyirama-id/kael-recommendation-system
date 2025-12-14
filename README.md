@@ -78,6 +78,7 @@
     - [11.4 Find User/Event Screen](#114-find-userevent-screen)
     - [11.5 Show Graph Screen](#115-show-graph-screen)
   - [12. Daftar Kelompok](#12-daftar-kelompok)
+  - [13. Update](#13-update)
 
 ## 1. Latar Belakang
 
@@ -633,3 +634,9 @@ Link :
 
 D-14 :
 Link :
+
+## Update 
+Update yang dilakukan, mencakup:
+1. Tanggal update : 12 Desember 2025
+2. Deskripsi update : Menambahkan start date dan end date pada rekomendasi event dan email pada rekomendasi user
+3. File tempat update tersebut dilakukan : `RecommendEventScreen` dan `RecommendUserScreen`
