@@ -77,8 +77,8 @@
     - [11.3 Recommend Result Screen](#113-recommend-result-screen)
     - [11.4 Find User/Event Screen](#114-find-userevent-screen)
     - [11.5 Show Graph Screen](#115-show-graph-screen)
-  - [12. Daftar Kelompok](#12-daftar-kelompok)
-  - [13. Update](#13-update)
+  - [12. Update](#12-update)
+  - [13. Daftar Kelompok](#13-daftar-kelompok)
 
 ## 1. Latar Belakang
 
@@ -591,52 +591,54 @@ Halaman hasil pencarian user/event berdasarkan ID. Gambar dibawah merupakan cont
 Halaman untuk menampilkan daftar relasi graph.
 ![Screenshot of show graph screen](public/show-graph-screen.png)
 
-## 12. Daftar Kelompok
+## 12. Update
 
-D-1 :
-Link :
+Update yang dilakukan, mencakup:
+
+1. Tanggal update : 12 Desember 2025
+2. Deskripsi update : Menambahkan start date dan end date pada rekomendasi event dan email pada rekomendasi user
+3. File tempat update tersebut dilakukan : `RecommendEventScreen` dan `RecommendUserScreen`
+
+## 13. Daftar Kelompok
+
+D-1 : Word Rank Guesser Game
+Link : <https://github.com/NashiwaInsan/asdfinalproject>
 
 D-2 : Sistem Rekomendasi Event Berbasis Graph
-Link : https://github.com/dedyirama-id/kael-recommendation-system
+Link : <https://github.com/dedyirama-id/kael-recommendation-system>
 
 D-3 : Smart Traffic Light Simulator
-Link : https://github.com/Sudukk/FP_ASD_Traffic_Light_Simulation_FINAL
+Link : <https://github.com/Sudukk/FP_ASD_Traffic_Light_Simulation_FINAL>
 
-D-4 :
-Link :
+D-4 : HotelSeek - Rekomendasi Pemilihan Hotel
+Link : <https://github.com/dreadf/hotelseek>
 
 D-5 :
 Link :
 
-D-6 :
-Link :
+D-6 : To-Do List
+Link : <https://github.com/anggraitapr/ASDFPTODOLIST>
 
-D-7 :
-Link :
+D-7 : Sistem Antrian IGD
+Link : <https://github.com/WilliamHanantha/FP-ASD>
 
-D-8 :
-Link :
+D-8 : Sistem Rekomendasi Jadwal Latihan dan Nutrisi Gym
+Link :<https://github.com/tyr3x74/GymPlan>
 
-D-9 :
-Link :
+D-9 : Sistem Rekomendasi Teman Berdasarkan Mutual Friends
+Link :<https://github.com/mariaelvina/FinalProjectD9>
 
-D-10 :
-Link :
+D-10 : Monster Chase
+Link : <https://github.com/Aida41104/FPASD>
 
-D-11 :
-Link :
+D-11 : Warehouse Management System
+Link : <https://github.com/FasaBil/ASD-D11-Inventory-Management>
 
-D-12 :
-Link :
+D-12 : Smart Traveling Planner
+Link : <https://github.com/Dziky05/FP-ASD-KEL-13>
 
-D-13 :
-Link :
+D-13 : Sistem Manajemen Inventaris Gudang dan Optimasi Rute Pengiriman
+Link : <https://github.com/FashaAsshofa/Final-Project-ASD-D-Kelompok-13>
 
-D-14 :
-Link :
-
-## Update 
-Update yang dilakukan, mencakup:
-1. Tanggal update : 12 Desember 2025
-2. Deskripsi update : Menambahkan start date dan end date pada rekomendasi event dan email pada rekomendasi user
-3. File tempat update tersebut dilakukan : `RecommendEventScreen` dan `RecommendUserScreen`
+D-14 : Rekomendasi Film berbasis Graph
+Link : <https://github.com/neutralcheeze/final-project-asd.git>
