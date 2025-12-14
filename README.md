@@ -1,29 +1,37 @@
-# Sistem Rekomendasi Berbasis Graph
+# Sistem Rekomendasi Event Berbasis Graph
 
-**Mata kuliah:** Algoritma dan Struktur Data  
-**Kelompok:** D-2  
+![ITS Logo](https://upload.wikimedia.org/wikipedia/id/0/01/Institut_Teknologi_Sepuluh_Nopember_seal.svg)
+
+**Mata kuliah:** Algoritma dan Struktur Data
+**Dosen Pengampu:** Renny Pradina Kusumawardani
+**Kelas:** D
+**Kelompok:** 2  
 **Anggota:**
 
-1. 5026241016 Christabel Arrowina Putri Tjahyadi
-2. 5026241059 Nayla Rameyza Alya
-3. 5026241083 Gusti Ayu Wedha Putri Surya
-4. 5026241107 Dedy Irama
+1. 5026241016 - Christabel Arrowina Putri Tjahyadi
+2. 5026241059 - Nayla Rameyza Alya
+3. 5026241083 - Gusti Ayu Wedha Putri Surya
+4. 5026241107 - Dedy Irama
 
 ## Daftar Isi
 
-- [Sistem Rekomendasi Berbasis Graph](#sistem-rekomendasi-berbasis-graph)
+- [Sistem Rekomendasi Event Berbasis Graph](#sistem-rekomendasi-event-berbasis-graph)
   - [Daftar Isi](#daftar-isi)
   - [1. Latar Belakang](#1-latar-belakang)
   - [2. Deskripsi Masalah](#2-deskripsi-masalah)
   - [3. Solusi](#3-solusi)
-  - [4. Representasi Data, Struktur Data, Alur Program](#4-representasi-data-struktur-data-alur-program)
-    - [4.1 Representasi Data dan Struktur Data](#41-representasi-data-dan-struktur-data)
-      - [4.1.1 Entitas Utama: User, Event, Tag](#411-entitas-utama-user-event-tag)
-        - [1. User](#1-user)
-        - [2. Event](#2-event)
-        - [3. Tag](#3-tag)
-  - [5. Algoritma](#5-algoritma)
-    - [5.1 BFS Recommendation](#51-bfs-recommendation)
+  - [4. Fitur](#4-fitur)
+  - [5. Representasi Data](#5-representasi-data)
+    - [5.1 User](#51-user)
+    - [5.2 Event](#52-event)
+    - [5.3 Tag](#53-tag)
+  - [6. Struktur Data](#6-struktur-data)
+    - [6.1 Set](#61-set)
+    - [6.2 Map](#62-map)
+    - [6.3 List](#63-list)
+    - [6.4 Graph](#64-graph)
+  - [7. Algoritma](#7-algoritma)
+    - [7.1 BFS Recommendation](#71-bfs-recommendation)
     - [5.2 Personalized PageRank](#52-personalized-pagerank)
   - [6. Alur Program](#6-alur-program)
   - [7. Arsitektur Program](#7-arsitektur-program)
@@ -53,7 +61,7 @@
       - [`ShowGraphScreen.java`](#showgraphscreenjava)
     - [Folder `resources/`](#folder-resources)
   - [8. Cara Menjalankan Program](#8-cara-menjalankan-program)
-  - [9. Daftar Kelompok]
+  - [9. Daftar Kelompok](#9-daftar-kelompok)
 
 ## 1. Latar Belakang
 
@@ -75,17 +83,19 @@ Untuk mendukung fitur rekomendasi tersebut, Ka’el memerlukan struktur data yan
 **Rekomendasi Event Menggunakan Graph dengan Modified BFS sebagai Sistem Scoring**  
 Mengembangkan sistem rekomendasi berbasis graph dengan memodelkan event, tag, dan pengguna sebagai node. Hubungan antar entitas direpresentasikan sebagai edge. Semua node saling terhubung sehingga relevansi bisa dihitung berdasarkan kedekatan dalam graf.
 
-## 4. Representasi Data, Struktur Data, Alur Program
+## 4. Fitur
 
-### 4.1 Representasi Data dan Struktur Data
+1. Mendapatkan rekomendasi event yang relevan berdasarkan deskripsi profil pengguna
+2. Mendapatkan rekomendasi user yang relevan berdasarkan deskripsi event
+3. Mendapatkan detail event berdasarkan ID Event
+4. Mendapatkan detail user berdasarkan ID User
+5. Menampilkan seluruh struktur graph
 
-Secara konsep, program ini adalah sistem rekomendasi **berbasis graf** untuk **User, Event, dan Tag** yang ditampilkan lewat terminal.
+## 5. Representasi Data
 
-#### 4.1.1 Entitas Utama: User, Event, Tag
+Secara konsep, program ini adalah sistem rekomendasi **berbasis graf** untuk **User, Event, dan Tag** yang ditampilkan lewat terminal. Terdapat tiga entitas yang didefinisikan di package `org.kael.entities`.
 
-Tiga entitas ini didefinisikan di package `org.kael.entities`.
-
-##### 1. User
+### 5.1 User
 
 - Dipakai untuk merepresentasikan pengguna.
 - Field:
@@ -107,7 +117,7 @@ Tiga entitas ini didefinisikan di package `org.kael.entities`.
   }
   ```
 
-##### 2. Event
+### 5.2 Event
 
 - Representasi event yang direkomendasikan.
 - Field: info dasar event (judul, deskripsi, tanggal, URL, organizer).
@@ -134,10 +144,10 @@ Tiga entitas ini didefinisikan di package `org.kael.entities`.
   }
   ```
 
-##### 3. Tag
+### 5.3 Tag
 
-- Representasi tag/kategori/minat.
-- Dipakai untuk menghubungkan user dan event melalui minat/hashtag.
+- Representasi tag/kategori.
+- Dipakai untuk menghubungkan user dan event melalui kategori.
 - Dipakai di:
 
   - `GraphLoader`: data dari `tags.csv`
@@ -154,11 +164,55 @@ Tiga entitas ini didefinisikan di package `org.kael.entities`.
   }
   ```
 
-## 5. Algoritma
+## 6. Struktur Data
 
-Bagian ini menjelaskan dua algoritma utama yang digunakan (atau direncanakan) pada sistem rekomendasi Ka’el, yaitu algoritma BFS yang dimodifikasi untuk proses rekomendasi, dan algoritma Personalized PageRank (PPR).
+### 6.1 Set
 
-### 5.1 BFS Recommendation
+Struktur data set digunakan untuk menyimpan kumpulan data unik tanpa adanya nilai yang duplikat. Set digunakan dalam sistem rekomendasi untuk menyimpan data event, tag, dan user dengan memastikan tidak ada data yang duplikat.
+
+Digunakan dalam class:
+
+- `Personalization`
+- `Graph`
+- `RecommendEventScreen`
+- `RecommendUserScreen`
+
+### 6.2 Map
+
+Map nantinya akan digunakan dalam sistem rekomendasi untuk menyimpan data berdasarkan key-value untuk mempercepat pencarian dan akses data.
+
+Digunakan dalam class:
+
+- `GraphLoader`
+- `Personalization`
+- `Graph`
+- `RecommendEventScreen`
+- `RecommendUserScreen`
+
+### 6.3 List
+
+List digunakan untuk menyimpan rangkaian data terurut dengan ukuran yang dapat disesuaikan dengan ukuran data.
+
+Digunakan dalam class:
+
+- `GraphLoader`
+- `Personalization`
+- `RecommendEventScreen`
+- `RecommendUserScreen`
+
+### 6.4 Graph
+
+Graph digunakan sebagai struktur data utama yang merepresentasikan hubungan antara entitas event-tag-user. Relasi yang dibentuk nantinya akan digunakan untuk mendapatkan hasil rekomendasi menggunakan algoritma BFS yang dimodifikasi.
+
+Digunakan dalam class:
+
+- `Graph`
+- `GraphLoader`
+- `Personalization`
+
+## 7. Algoritma
+
+### 7.1 BFS Recommendation
 
 Algoritma BFS Recommendation digunakan untuk menjawab kebutuhan: bagaimana mencocokkan deskripsi profil pengguna dalam bentuk teks bebas dengan event-event yang relevan secara otomatis dan efisien.
 
@@ -412,6 +466,7 @@ Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event*
    - Ikuti pesan seperti “Press ENTER to continue...” untuk berpindah layar.
 
 ## 9. Daftar Kelompok
+
 D-1 :
 Link :
 
@@ -453,3 +508,4 @@ Link :
 
 D-14 :
 Link :
+
