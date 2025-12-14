@@ -36,6 +36,14 @@
     - [7.3 Linear Search](#73-linear-search)
     - [7.4 Selection Sort](#74-selection-sort)
   - [8. Alur Program](#8-alur-program)
+    - [8.1 Inisialisasi Program](#81-inisialisasi-program)
+    - [8.2 Welcome Screen dan Menu Utama](#82-welcome-screen-dan-menu-utama)
+    - [8.3 Navigasi Antar Halaman](#83-navigasi-antar-halaman)
+    - [8.4 Alur Pencarian User](#84-alur-pencarian-user)
+    - [8.5 Alur Pencarian Event](#85-alur-pencarian-event)
+    - [8.6 Alur Rekomendasi Event](#86-alur-rekomendasi-event)
+    - [8.7 Alur Rekomendasi User](#87-alur-rekomendasi-user)
+    - [8.8 Pengakhiran Program](#88-pengakhiran-program)
   - [9. Arsitektur Program](#9-arsitektur-program)
     - [File Utama](#file-utama)
       - [`Main.java`](#mainjava)
@@ -269,6 +277,72 @@ Algoritma sorting yang akan digunakan untuk mengurutkan node pada graph berdasar
 Pada kode program, algoritma Selection Sort diimplementasikan pada kelas `Sort` berupa method `selectionSort()`.
 
 ## 8. Alur Program
+
+### 8.1 Inisialisasi Program
+
+1. Program dijalankan melalui kelas utama (main).
+2. Sistem melakukan inisialisasi terminal sebagai pengatur tampilan aplikasi.
+3. Data user, event, dan tag dimuat dari sumber data melalui graph loader.
+4. Seluruh data disimpan ke dalam struktur graph beserta relasi antar data.
+5. Setelah proses inisialisasi selesai, sistem menampilkan halaman awal (welcome screen).
+
+### 8.2 Welcome Screen dan Menu Utama
+
+1. Welcome screen menampilkan judul aplikasi dan daftar fitur yang tersedia.
+2. Fitur yang disediakan meliputi pencarian user, pencarian event, rekomendasi event, rekomendasi user, dan keluar dari aplikasi.
+3. Pengguna memilih fitur dengan memasukkan input sesuai menu yang ditampilkan.
+4. Sistem melakukan validasi terhadap input pengguna.
+5. Jika input valid, sistem mengarahkan pengguna ke halaman fitur yang dipilih
+
+### 8.3 Navigasi Antar Halaman
+
+1. Setiap fitur direpresentasikan sebagai sebuah screen.
+2. Screen bertanggung jawab untuk menampilkan antarmuka, menerima input, dan menjalankan logika fitur.
+3. Perpindahan antar screen dikontrol oleh terminal.
+4. Setelah suatu fitur selesai dijalankan, pengguna dapat kembali ke menu utama atau berpindah ke fitur lain.
+
+### 8.4 Alur Pencarian User
+
+1. Sistem meminta pengguna memasukkan identitas user.
+2. Sistem melakukan pencarian data user pada struktur graph.
+3. Jika user ditemukan, sistem menampilkan informasi detail user.
+4. Sistem menampilkan relasi user dengan event dan tag terkait.
+5. Jika user tidak ditemukan, sistem menampilkan pesan kesalahan dan kembali ke menu sebelumnya.
+
+### 8.5 Alur Pencarian Event
+
+1. Sistem meminta pengguna memasukkan identitas event.
+2. Sistem melakukan pencarian data event pada struktur graph.
+3. Jika event ditemukan, sistem menampilkan detail event.
+4. Sistem menampilkan relasi event dengan user dan tag terkait.
+5. Jika event tidak ditemukan, sistem menampilkan pesan bahwa data tidak tersedia.
+
+### 8.6 Alur Rekomendasi Event
+
+1. Sistem meminta pengguna memilih algoritma rekomendasi yang akan digunakan.
+2. Pengguna memasukkan deskripsi profil atau kata kunci minat.
+3. Sistem melakukan tokenisasi terhadap input pengguna.
+4. Sistem mencari node yang relevan di dalam graph.
+5. Sistem menghitung skor relevansi menggunakan algoritma yang dipilih.
+6. Skor hasil perhitungan dinormalisasi agar dapat dibandingkan.
+7. Data rekomendasi diurutkan berdasarkan skor relevansi.
+8. Sistem menyaring hasil sehingga hanya data bertipe event yang ditampilkan.
+9. Sistem menampilkan daftar event dengan skor relevansi tertinggi.
+
+### 8.7 Alur Rekomendasi User
+
+1. Sistem meminta pengguna memilih algoritma rekomendasi.
+2. Pengguna memasukkan deskripsi profil atau kata kunci.
+3. Sistem membentuk seed berdasarkan hasil pencarian di graph.
+4. Sistem menghitung skor relevansi untuk setiap user.
+5. Hasil perhitungan dinormalisasi dan diurutkan.
+6. Sistem menampilkan daftar user dengan tingkat relevansi tertinggi.
+
+### 8.8 Pengakhiran Program
+
+1. Setelah suatu fitur selesai dijalankan, pengguna dapat kembali ke menu utama.
+2. Jika pengguna memilih opsi keluar, sistem menghentikan proses aplikasi.
+3. Program berakhir dengan menutup seluruh sumber daya yang digunakan.
 
 ## 9. Arsitektur Program
 
@@ -559,4 +633,3 @@ Link :
 
 D-14 :
 Link :
-
