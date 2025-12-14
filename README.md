@@ -6,7 +6,7 @@
 **Dosen Pengampu:** Renny Pradina Kusumawardani  
 **Kelas:** D  
 **Kelompok:** 2  
-**Anggota:**  
+**Anggota:**
 
 1. 5026241016 - Christabel Arrowina Putri Tjahyadi
 2. 5026241059 - Nayla Rameyza Alya
@@ -32,9 +32,11 @@
     - [6.4 Graph](#64-graph)
   - [7. Algoritma](#7-algoritma)
     - [7.1 BFS Recommendation](#71-bfs-recommendation)
-    - [5.2 Personalized PageRank](#52-personalized-pagerank)
-  - [6. Alur Program](#6-alur-program)
-  - [7. Arsitektur Program](#7-arsitektur-program)
+    - [7.2 Personalized PageRank (PPR)](#72-personalized-pagerank-ppr)
+    - [7.3 Linear Search](#73-linear-search)
+    - [7.4 Selection Sort](#74-selection-sort)
+  - [8. Alur Program](#8-alur-program)
+  - [9. Arsitektur Program](#9-arsitektur-program)
     - [File Utama](#file-utama)
       - [`Main.java`](#mainjava)
       - [`Screen.java`](#screenjava)
@@ -60,8 +62,14 @@
       - [`FindUserScreen.java`](#finduserscreenjava)
       - [`ShowGraphScreen.java`](#showgraphscreenjava)
     - [Folder `resources/`](#folder-resources)
-  - [8. Cara Menjalankan Program](#8-cara-menjalankan-program)
-  - [9. Daftar Kelompok](#9-daftar-kelompok)
+  - [10. Cara Menjalankan Program](#10-cara-menjalankan-program)
+  - [11. Tampilan Program](#11-tampilan-program)
+    - [11.1 Wellcome Screen](#111-wellcome-screen)
+    - [11.2 Recommend Screen](#112-recommend-screen)
+    - [11.3 Recommend Result Screen](#113-recommend-result-screen)
+    - [11.4 Find User/Event Screen](#114-find-userevent-screen)
+    - [11.5 Show Graph Screen](#115-show-graph-screen)
+  - [12. Daftar Kelompok](#12-daftar-kelompok)
 
 ## 1. Latar Belakang
 
@@ -214,7 +222,7 @@ Digunakan dalam class:
 
 ### 7.1 BFS Recommendation
 
-Algoritma BFS Recommendation digunakan untuk menjawab kebutuhan: bagaimana mencocokkan deskripsi profil pengguna dalam bentuk teks bebas dengan event-event yang relevan secara otomatis dan efisien.
+Algoritma BFS Recommendation digunakan untuk menjawab kebutuhan "bagaimana mencocokkan deskripsi profil pengguna dalam bentuk teks bebas dengan event-event yang relevan secara otomatis dan efisien".
 
 Profil pengguna terlebih dahulu dikonversi menjadi beberapa simpul awal (_starting nodes_) di dalam graf, misalnya node tag atau event yang mengandung kata kunci dari profil tersebut. Dari kumpulan _starting nodes_ ini, sistem menjalankan penelusuran Breadth-First Search (BFS) hingga kedalaman tertentu dan memberikan skor pada setiap node yang dilewati.
 
@@ -228,13 +236,15 @@ Secara garis besar, alur kerja BFS Recommendation adalah sebagai berikut:
 
 Dengan pendekatan ini, BFS Recommendation tidak sekadar mencari event berdasarkan kecocokan kata kunci, tetapi juga mempertimbangkan kedekatan struktural di dalam graf user–tag–event. Hal ini membuat proses pencarian menjadi otomatis, terarah, dan lebih efisien dibandingkan pencarian manual.
 
-### 5.2 Personalized PageRank
+Pada kode program, algoritma BFS Recommendation diimplementasikan pada kelas `Personalization` berupa method `bfsRecommendation()`.
 
-Personalized PageRank (PPR) disiapkan sebagai pengembangan dari BFS Recommendation untuk memberikan rekomendasi yang lebih kaya dan sensitif terhadap struktur global graf, namun tetap terpersonalisasi terhadap profil pengguna tertentu.
+### 7.2 Personalized PageRank (PPR)
+
+Personalized PageRank (PPR) disiapkan sebagai pengembangan dari BFS Recommendation untuk memberikan rekomendasi yang lebih kaya dan sensitif terhadap struktur global graf, namun tetap terpersonalisasi terhadap profil pengguna.
 
 Berbeda dengan BFS yang fokus pada kedekatan lokal dalam radius kedalaman tertentu, PPR memodelkan proses _random walk_ di sepanjang graf dengan kemungkinan _restart_ ke node-node yang mewakili preferensi pengguna.
 
-Intuisi kerjanya adalah sebagai berikut: bayangkan seorang “walker” yang berjalan di graf. Pada setiap langkah, dengan probabilitas tertentu walker mengikuti edge ke tetangga secara acak, dan dengan probabilitas lain ia “kembali” ke sekumpulan node yang menggambarkan profil user (vektor personalisasi).
+Intuisi kerjanya adalah sebagai berikut. Bayangkan seorang “walker” yang berjalan di graf. Pada setiap langkah, dengan probabilitas tertentu walker mengikuti edge ke tetangga secara acak, dan dengan probabilitas lain ia “kembali” ke sekumpulan node yang menggambarkan profil user (vektor personalisasi).
 
 Node yang sering dikunjungi dalam jangka panjang akan memperoleh skor PPR tinggi, dan skor ini diinterpretasikan sebagai ukuran relevansi node tersebut terhadap profil pengguna.
 
@@ -244,9 +254,23 @@ Nilai akhir Personalized PageRank kemudian digunakan sebagai skor rekomendasi, d
 
 Melalui pendekatan ini, PPR mampu menemukan event yang relevan tidak hanya karena dekat secara langsung dengan profil user, tetapi juga karena berada pada posisi penting dalam struktur graf secara keseluruhan.
 
-## 6. Alur Program
+Pada kode program, algoritma PPR diimplementasikan pada kelas `Personalization` berupa method `personalizedPageRank()`.
 
-## 7. Arsitektur Program
+### 7.3 Linear Search
+
+Algoritma searching yang digunakan untuk mencari node dalam kumpulan node pada graph. Hasil pencarian nantinya akan digunakan sebagai titik mulai untuk algoritma skoring.
+
+Pada kode program, algoritma Linear Search diimplementasikan pada kelas `Graph` berupa method `search()`.
+
+### 7.4 Selection Sort
+
+Algoritma sorting yang akan digunakan untuk mengurutkan node pada graph berdasarkan nilai skor. Hasil sorting ini akan digunakan untuk menentukan item yang akan direkomendasikan ke pengguna.
+
+Pada kode program, algoritma Selection Sort diimplementasikan pada kelas `Sort` berupa method `selectionSort()`.
+
+## 8. Alur Program
+
+## 9. Arsitektur Program
 
 Struktur program dibangun untuk memisahkan logika algoritma, model data, pemrosesan graf, antarmuka terminal, dan layar tampilan. Berikut penjelasan folder dan file utama pada proyek:
 
@@ -406,7 +430,7 @@ Dataset berupa CSV:
 
 Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event**.
 
-## 8. Cara Menjalankan Program
+## 10. Cara Menjalankan Program
 
 > Jika menggunakan IntelliJ, klon repository melalui fitur _New Project from Version Control_ pada IntelliJ. Kemudian untuk menjalankan program, klik tombol `Run` pada IntelliJ.
 
@@ -465,7 +489,34 @@ Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event*
 
    - Ikuti pesan seperti “Press ENTER to continue...” untuk berpindah layar.
 
-## 9. Daftar Kelompok
+## 11. Tampilan Program
+
+### 11.1 Wellcome Screen
+
+Halaman welcome screen yang ditampilkan pertama kali ketika pengguna menjalankan program.
+![Screenshot of welcome screen](public/welcome-screen.png)
+
+### 11.2 Recommend Screen
+
+Halaman pilihan algoritma ketika pengguna memilih rekomendasi user/event pada welcome screen.
+![Screenshot of recommend screen](public/recommend-screen.png)
+
+### 11.3 Recommend Result Screen
+
+Halaman hasil rekomendasi setelah pengguna mengisi detail profile/event untuk rekomendasi. Gambar di bawah merupakan contoh hasil rekomendasi event.
+![Screenshot of recommend event result screen](public/recommend-event-result-screen.png)
+
+### 11.4 Find User/Event Screen
+
+Halaman hasil pencarian user/event berdasarkan ID. Gambar dibawah merupakan contoh hasil pencarian user.
+![Screenshot of find user screen](public/find-user-result-screen.png)
+
+### 11.5 Show Graph Screen
+
+Halaman untuk menampilkan daftar relasi graph.
+![Screenshot of show graph screen](public/show-graph-screen.png)
+
+## 12. Daftar Kelompok
 
 D-1 :
 Link :

@@ -204,10 +204,40 @@ public class GraphLoader {
           continue;
         }
         if (line.isBlank()) continue;
-        rows.add(line.split(",", -1));
+        rows.add(parseCsvLine(line));
       }
     }
     return rows;
+  }
+
+  /**
+   * Mem-parse satu baris CSV dengan dukungan tanda kutip sehingga koma di dalam kutipan tidak terpecah.
+   * Format kutipan ganda di dalam field didukung dengan escape "".
+   */
+  private String[] parseCsvLine(String line) {
+    List<String> cols = new ArrayList<>();
+    StringBuilder current = new StringBuilder();
+    boolean inQuotes = false;
+
+    for (int i = 0; i < line.length(); i++) {
+      char c = line.charAt(i);
+      if (c == '"') {
+        boolean isEscapedQuote = inQuotes && i + 1 < line.length() && line.charAt(i + 1) == '"';
+        if (isEscapedQuote) {
+          current.append('"');
+          i++; // lewati kutipan kedua
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (c == ',' && !inQuotes) {
+        cols.add(current.toString());
+        current.setLength(0);
+      } else {
+        current.append(c);
+      }
+    }
+    cols.add(current.toString());
+    return cols.toArray(new String[0]);
   }
 
   /**
