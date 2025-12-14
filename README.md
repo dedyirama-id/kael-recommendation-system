@@ -2,11 +2,11 @@
 
 ![ITS Logo](https://upload.wikimedia.org/wikipedia/id/0/01/Institut_Teknologi_Sepuluh_Nopember_seal.svg)
 
-**Mata kuliah:** Algoritma dan Struktur Data
-**Dosen Pengampu:** Renny Pradina Kusumawardani
-**Kelas:** D
+**Mata kuliah:** Algoritma dan Struktur Data  
+**Dosen Pengampu:** Renny Pradina Kusumawardani  
+**Kelas:** D  
 **Kelompok:** 2  
-**Anggota:**
+**Anggota:**  
 
 1. 5026241016 - Christabel Arrowina Putri Tjahyadi
 2. 5026241059 - Nayla Rameyza Alya
