@@ -53,6 +53,7 @@
       - [`ShowGraphScreen.java`](#showgraphscreenjava)
     - [Folder `resources/`](#folder-resources)
   - [8. Cara Menjalankan Program](#8-cara-menjalankan-program)
+  - [9. Daftar Kelompok]
 
 ## 1. Latar Belakang
 
@@ -409,3 +410,46 @@ Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event*
      - atau menampilkan ringkasan graf.
 
    - Ikuti pesan seperti “Press ENTER to continue...” untuk berpindah layar.
+
+## 9. Daftar Kelompok
+D-1 :
+Link :
+
+D-2 : Sistem Rekomendasi Event Berbasis Graph
+Link : https://github.com/dedyirama-id/kael-recommendation-system
+
+D-3 : Smart Traffic Light Simulator
+Link : https://github.com/Sudukk/FP_ASD_Traffic_Light_Simulation_FINAL
+
+D-4 :
+Link :
+
+D-5 :
+Link :
+
+D-6 :
+Link :
+
+D-7 :
+Link :
+
+D-8 :
+Link :
+
+D-9 :
+Link :
+
+D-10 :
+Link :
+
+D-11 :
+Link :
+
+D-12 :
+Link :
+
+D-13 :
+Link :
+
+D-14 :
+Link :
