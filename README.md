@@ -569,26 +569,31 @@ Seluruh file digunakan `GraphLoader` untuk membentuk graph **User–Tag–Event*
 ### 11.1 Wellcome Screen
 
 Halaman welcome screen yang ditampilkan pertama kali ketika pengguna menjalankan program.
+
 ![Screenshot of welcome screen](public/welcome-screen.png)
 
 ### 11.2 Recommend Screen
 
 Halaman pilihan algoritma ketika pengguna memilih rekomendasi user/event pada welcome screen.
+
 ![Screenshot of recommend screen](public/recommend-screen.png)
 
 ### 11.3 Recommend Result Screen
 
 Halaman hasil rekomendasi setelah pengguna mengisi detail profile/event untuk rekomendasi. Gambar di bawah merupakan contoh hasil rekomendasi event.
+
 ![Screenshot of recommend event result screen](public/recommend-event-result-screen.png)
 
 ### 11.4 Find User/Event Screen
 
 Halaman hasil pencarian user/event berdasarkan ID. Gambar dibawah merupakan contoh hasil pencarian user.
+
 ![Screenshot of find user screen](public/find-user-result-screen.png)
 
 ### 11.5 Show Graph Screen
 
 Halaman untuk menampilkan daftar relasi graph.
+
 ![Screenshot of show graph screen](public/show-graph-screen.png)
 
 ## 12. Update
