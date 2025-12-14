@@ -601,44 +601,44 @@ Update yang dilakukan, mencakup:
 
 ## 13. Daftar Kelompok
 
-D-1 : Word Rank Guesser Game
+D-1 : Word Rank Guesser Game  
 Link : <https://github.com/NashiwaInsan/asdfinalproject>
 
-D-2 : Sistem Rekomendasi Event Berbasis Graph
+D-2 : Sistem Rekomendasi Event Berbasis Graph  
 Link : <https://github.com/dedyirama-id/kael-recommendation-system>
 
-D-3 : Smart Traffic Light Simulator
+D-3 : Smart Traffic Light Simulator  
 Link : <https://github.com/Sudukk/FP_ASD_Traffic_Light_Simulation_FINAL>
 
-D-4 : HotelSeek - Rekomendasi Pemilihan Hotel
+D-4 : HotelSeek - Rekomendasi Pemilihan Hotel  
 Link : <https://github.com/dreadf/hotelseek>
 
-D-5 :
+D-5 :  
 Link :
 
-D-6 : To-Do List
+D-6 : To-Do List  
 Link : <https://github.com/anggraitapr/ASDFPTODOLIST>
 
-D-7 : Sistem Antrian IGD
+D-7 : Sistem Antrian IGD  
 Link : <https://github.com/WilliamHanantha/FP-ASD>
 
-D-8 : Sistem Rekomendasi Jadwal Latihan dan Nutrisi Gym
+D-8 : Sistem Rekomendasi Jadwal Latihan dan Nutrisi Gym  
 Link :<https://github.com/tyr3x74/GymPlan>
 
-D-9 : Sistem Rekomendasi Teman Berdasarkan Mutual Friends
+D-9 : Sistem Rekomendasi Teman Berdasarkan Mutual Friends  
 Link :<https://github.com/mariaelvina/FinalProjectD9>
 
-D-10 : Monster Chase
+D-10 : Monster Chase  
 Link : <https://github.com/Aida41104/FPASD>
 
-D-11 : Warehouse Management System
+D-11 : Warehouse Management System  
 Link : <https://github.com/FasaBil/ASD-D11-Inventory-Management>
 
-D-12 : Smart Traveling Planner
+D-12 : Smart Traveling Planner  
 Link : <https://github.com/Dziky05/FP-ASD-KEL-13>
 
-D-13 : Sistem Manajemen Inventaris Gudang dan Optimasi Rute Pengiriman
+D-13 : Sistem Manajemen Inventaris Gudang dan Optimasi Rute Pengiriman  
 Link : <https://github.com/FashaAsshofa/Final-Project-ASD-D-Kelompok-13>
 
-D-14 : Rekomendasi Film berbasis Graph
+D-14 : Rekomendasi Film berbasis Graph  
 Link : <https://github.com/neutralcheeze/final-project-asd.git>
